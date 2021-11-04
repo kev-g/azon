@@ -91,6 +91,7 @@ const Navbar = () => {
       <Toolbar className={classes.toolbar}>
         {user?.result ? ( // if user exists, (login)
           <div className={classes.profile}>
+            {user.result.type !== "admin" ? (
             <a href="/profile">
               <Avatar
                 className={classes.purple}
@@ -100,6 +101,15 @@ const Navbar = () => {
                 {user?.result.name.charAt(0)}
               </Avatar>
             </a>
+            ):(
+              <Avatar
+                className={classes.purple}
+                alt={user?.result.name}
+                src={user?.result.imageUrl}
+              >
+                {user?.result.name.charAt(0)}
+              </Avatar>
+            )}
             <Typography className={classes.userName} variant="h6">
               {user?.result.name}
             </Typography>
@@ -107,10 +117,16 @@ const Navbar = () => {
             {user.result.type !== "agent" ? (
               // <Link to="/agentHub">Agent Hub</Link>
 
-              <Button component={Link} to="/agentHub"  className={classes.purple} variant="contained"  >
+              user.result.type === "user" ?(
+                <Button component={Link} to="/agentHub"  className={classes.purple} variant="contained"  >
                Agent Hub
-             </Button>
-
+                </Button>
+              ):(
+                <Button disabled component={Link} to="/agentHub"  className={classes.purple} variant="contained"  >
+               Agent Hub
+                </Button>
+              )
+              
             ) : (
               <>
               {/* <Button component={Link} to="/reset"  className={classes.purple} variant="contained"  >
