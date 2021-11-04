@@ -79,7 +79,6 @@ export const deleteAgent = (userID,router) => async (dispatch) => {
     const { data } = await api.deleteAgent(userID);
     console.log(data);
     dispatch({ type: DELETE, payload: data });
-    router.push("/AgentList");
   } catch (error) {
     console.log(error.message);
   }

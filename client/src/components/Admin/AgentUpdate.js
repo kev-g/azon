@@ -5,12 +5,11 @@ import { useDispatch } from 'react-redux'
 import axios from 'axios'
 import { Paper, Select, MenuItem, FormControl, makeStyles, Button } from "@material-ui/core";
 import Box from '@mui/material/Box';
-// import Button from '@mui/material/Button';
-// import Dialog from '@mui/material/Dialog';
-// import DialogActions from '@mui/material/DialogActions';
-// import DialogContent from '@mui/material/DialogContent';
-// import DialogContentText from '@mui/material/DialogContentText';
-// import DialogTitle from '@mui/material/DialogTitle';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 export const AgentUpdate = (router) => {
 
@@ -18,6 +17,15 @@ export const AgentUpdate = (router) => {
     const dispatch = useDispatch()
     const [agentProfile, setAgentProfile] = useState('')
     let history = useHistory();
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+      };
+    
+      const handleClose = () => {
+        setOpen(false);
+      };
 
     const useStyles = makeStyles(theme => ({
         FormControl: { minWidth: 100 }
@@ -56,6 +64,7 @@ export const AgentUpdate = (router) => {
     const handleDelete = (e) => {
         e.preventDefault();
         alert('Agent Deleted')
+        history.push("/AgentList");
         dispatch(deleteAgent(id))
     };
 
@@ -95,9 +104,25 @@ export const AgentUpdate = (router) => {
                             <Button onClick={handleSubmit}  color="primary" variant="contained"  >
                                 Update
                             </Button>
-                            <Button onClick={handleDelete} color="secondary" variant="contained" >
+                            <Button onClick={handleClickOpen} color="secondary" variant="contained" >
                         Delete
                     </Button>
+                    <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Delete an Agent?"}
+        </DialogTitle>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleDelete} autoFocus >
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
                     <Button component={Link} to=  {{
                         pathname: `/AgentList`,
                       }} color="primary" variant="contained">
