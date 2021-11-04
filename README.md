@@ -12,8 +12,15 @@ How to start?
 2. Manual login 
 	1. (User: jon@gmail.com, pwd: 123)
 	2. (Agent: alan@gmail.com or steve@gmail.com, pwd: 123)
+	3. (Admin: admin@gmail.com, pwd 123) //login through Agent Login
 
 -------------------------------------------------------------------------------------------------------------
+5/11 Bug fixes & Updates:
+- Edited Agent status page(diff views depending on status)
+- Added google map, markers and infobox
+- Fixed listing details (Agent pic is now fetched from profile info)
+- Admin part
+
 27/10 Bug fixes & Updates:
 - Made some minor changes (colors, styles etc)
 - Pop-up chart on Navbar
