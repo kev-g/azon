@@ -171,15 +171,6 @@ const AgentAuth = () => {
                   : "Don't have an account? Sign Up"}
               </Button>
             </Grid>
-            <Button
-              type="button"
-              onClick={(e) => {
-                e.preventDefault();
-                window.location.href = "http://localhost:3002/";
-              }}
-            >
-              Admin Dashboard
-            </Button>
           </Grid>
         </form>
       </Paper>

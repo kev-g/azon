@@ -179,9 +179,24 @@ export const getAgent = async (req, res) => {
   // add async
 
   try {
-    const agents = await AgentModel.find(); // takes time, so add "await"
+    const agents = await AgentModel.find({type:"agent"}); // takes time, so add "await"
 
     res.status(200).json(agents); // return array of objs
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+
+export const deleteAgent = async (req, res) => {
+  // add async
+  
+  try {
+    const { id } = req.params;
+    
+    const agents = await AgentModel.deleteOne({_id:id}); 
+    
+    res.status(200); // return array of objs
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

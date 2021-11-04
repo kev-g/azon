@@ -17,6 +17,9 @@ import { useState, useEffect } from 'react'
 import { Box } from '@mui/material'
 import CircularProgress from '@mui/material/CircularProgress'
 import Loader from './components/Property/Loader'
+import AgentUpdate from "./components/Admin/AgentUpdate";
+import UserList from "./components/Admin/UserList";
+import AgentList from "./components/Admin/AgentList";
 
 function App () {
 
@@ -121,6 +124,9 @@ return (
         <Route path="/agentHub/:id" children={<AgentDetail />}></Route>
         <Route path="/reset" component={Reset} />
         <Route path="/agent" exact component={AgentAuth} />
+        <Route path="/agentList" exact component={AgentList} />
+        <Route path="/agentList/:id" children={<AgentUpdate />}></Route>
+        <Route path="/userList" exact component={UserList} />
         <Route path="/profile" exact component={Profile} />
         <Route path="/profile/description" component={Description} />
         <Route exact path="/DisplayListings">

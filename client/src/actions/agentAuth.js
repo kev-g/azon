@@ -1,4 +1,4 @@
-import { AUTH, FETCH_ALL_AGENT, USERUPDATE } from "../constants/actionTypes";
+import { AUTH, FETCH_ALL_AGENT, USERUPDATE,DELETE  } from "../constants/actionTypes";
 import * as api from "../api/index.js";
 
 // async action creators have to use redux thunk, (a function returns an async func with dispatch)
@@ -10,7 +10,14 @@ export const agentSignin = (formData, router) => async (dispatch) => {
 
     dispatch({ type: AUTH, data });
 
-    router.push("/profile"); // redirect home
+    if(data.result.type === "admin")
+    {
+      router.push("/AgentList");
+    }
+    else
+    {
+      router.push("/profile");
+    }
   } catch (error) {
     alert("wrong email/password");
   }
@@ -62,6 +69,17 @@ export const getAgent = () => async (dispatch) => {
   try {
     const { data } = await api.fetchAgent();
     dispatch({ type: FETCH_ALL_AGENT, payload: data });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const deleteAgent = (userID,router) => async (dispatch) => {
+  try {
+    const { data } = await api.deleteAgent(userID);
+    console.log(data);
+    dispatch({ type: DELETE, payload: data });
+    router.push("/AgentList");
   } catch (error) {
     console.log(error.message);
   }

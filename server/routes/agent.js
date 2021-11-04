@@ -1,7 +1,7 @@
 import express from "express";
 import {
   agentUpdateProfile,
-  getAgent,
+  getAgent,deleteAgent,
   agentUpdatePwd,
 } from "../controllers/agent.js";
 const router = express.Router();
@@ -23,5 +23,6 @@ router.post("/signin", agentSignin);
 router.post("/signup", agentSignup);
 router.patch("/:id/profile", auth, agentUpdateProfile);
 router.patch("/:id/psw", auth, agentUpdatePwd);
+router.delete("/:id",deleteAgent)
 
 export default router;
