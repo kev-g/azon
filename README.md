@@ -21,6 +21,10 @@ How to start?
 - Fixed listing details (Agent pic is now fetched from profile info)
 - Admin part
 
+Some disclaimer:
+- After going to "Display listing pages", have to wait around 5-10s for api to finish fetching the long lat, where the map will then display the markers.
+- Some lag/slow loading time fetched from api, see if can optimize (App.js in client folder)
+
 27/10 Bug fixes & Updates:
 - Made some minor changes (colors, styles etc)
 - Pop-up chart on Navbar
@@ -69,4 +73,4 @@ Not yet implemented/integrated: (u guys can take a look, feel free to clone and 
 - reset password
 - integrate JR & JC part 
 
-"# azon" 
+
