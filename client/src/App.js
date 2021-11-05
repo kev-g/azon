@@ -20,6 +20,8 @@ import Loader from './components/Property/Loader'
 import AgentUpdate from "./components/Admin/AgentUpdate";
 import UserList from "./components/Admin/UserList";
 import AgentList from "./components/Admin/AgentList";
+import UserUpdate from "./components/Admin/UserUpdate";
+import Blacklist from "./components/Admin/Blacklist";
 
 function App () {
 
@@ -125,8 +127,10 @@ return (
         <Route path="/reset" component={Reset} />
         <Route path="/agent" exact component={AgentAuth} />
         <Route path="/agentList" exact component={AgentList} />
+        <Route path="/blacklist" exact component={Blacklist} />
         <Route path="/agentList/:id" children={<AgentUpdate />}></Route>
         <Route path="/userList" exact component={UserList} />
+        <Route path="/userList/:id" children={<UserUpdate />}></Route>
         <Route path="/profile" exact component={Profile} />
         <Route path="/profile/description" component={Description} />
         <Route exact path="/DisplayListings">

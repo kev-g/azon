@@ -105,3 +105,15 @@ export const userUpdatePwd = async (req, res) => {
 
   res.json(updatedProfile); // save updatedListing
 };
+
+export const getUser = async (req, res) => {
+  // add async
+
+  try {
+    const user = await UserModel.find({type:"user"}); // takes time, so add "await"
+
+    res.status(200).json(user); // return array of objs
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};

@@ -1,4 +1,4 @@
-import { AUTH, USERUPDATE } from "../constants/actionTypes";
+import { AUTH, USERUPDATE,FETCH_ALL_USER, DELETE} from "../constants/actionTypes";
 import * as api from "../api/index.js";
 
 // async action creators have to use redux thunk, (a function returns an async func with dispatch)
@@ -34,5 +34,25 @@ export const updatePwd = (userId, profile) => async (dispatch) => {
     //dispatch({ type: USERUPDATE, payload: data });
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const getUser = () => async (dispatch) => {
+  try {
+    const { data } = await api.fetchUser();
+    dispatch({ type: FETCH_ALL_USER, payload: data });
+    console.log(data)
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const deleteUser = (userID) => async (dispatch) => {
+  try {
+    const { data } = await api.deleteUser(userID);
+    console.log(data);
+    dispatch({ type: DELETE, payload: data });
+  } catch (error) {
+    console.log(error.message);
   }
 };

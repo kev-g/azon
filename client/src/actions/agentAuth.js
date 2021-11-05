@@ -74,7 +74,7 @@ export const getAgent = () => async (dispatch) => {
   }
 };
 
-export const deleteAgent = (userID,router) => async (dispatch) => {
+export const deleteAgent = (userID) => async (dispatch) => {
   try {
     const { data } = await api.deleteAgent(userID);
     console.log(data);

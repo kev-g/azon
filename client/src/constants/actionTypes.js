@@ -9,3 +9,4 @@ export const AUTH = "AUTH";
 export const LOGOUT = "LOGOUT";
 export const USERUPDATE = "USERUPDATE";
 export const FETCH_ALL_AGENT = "FETCH_ALL_AGENT";
+export const FETCH_ALL_USER = "FETCH_ALL_USER";

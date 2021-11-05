@@ -122,8 +122,8 @@ const Navbar = () => {
                Agent Hub
                 </Button>
               ):(
-                <Button disabled component={Link} to="/agentHub"  className={classes.purple} variant="contained"  >
-               Agent Hub
+                <Button component={Link} to="/AgentList"  className={classes.purple} variant="contained"  >
+               Admin Dashboard
                 </Button>
               )
               

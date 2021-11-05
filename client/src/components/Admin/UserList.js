@@ -15,16 +15,16 @@ import { Select, MenuItem, FormControl,makeStyles, Button } from "@material-ui/c
 const UserList = () => {
     const [searchTerm, setSearchTerm] = useState('')
   const [order, setorder] = useState('ASC')
-  const [users, setUsers] = useState([])
+  const [user, setUsers] = useState([])
 
   const sorting = (col) => {
     if (order === 'ASC') {
-      const sorted = [...users.sort((a, b) => (a[col] > b[col] ? 1 : -1))]
+      const sorted = [...user.sort((a, b) => (a[col] > b[col] ? 1 : -1))]
       setUsers(sorted)
       setorder('DSC')
     }
     if (order === 'DSC') {
-      const sorted = [...users.sort((a, b) => (a[col] < b[col] ? 1 : -1))]
+      const sorted = [...user.sort((a, b) => (a[col] < b[col] ? 1 : -1))]
       setUsers(sorted)
       setorder('ASC')
     }
@@ -33,6 +33,7 @@ const UserList = () => {
   useEffect(() => {
     axios.get('/user').then((res) => {
         setUsers(res.data)
+        console.log(res.data);
     })
   }, [])
 
@@ -67,7 +68,7 @@ const UserList = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {users
+            {user
               .filter((user) => {
                 if (searchTerm === '') {
                   return user
@@ -90,9 +91,9 @@ const UserList = () => {
                   
                   <TableCell align='left'>
                     <Button component={Link} to=  {{
-                        pathname: `/agentHub/${d._id}`,
+                        pathname: `/userList/${d._id}`,
                       }} color="primary"  variant="contained">
-                     Delete
+                     Edit
                     </Button>
 
                   </TableCell>

@@ -53,4 +53,11 @@ export const agentUpdatePwd = (id, formData) =>
 //fetch agent
 export const fetchAgent = () => API.get("/agents");
 
+//fetch user
+export const fetchUser = () => API.get("/user");
+
+//delete Agent
 export const deleteAgent = (userID) => API.delete(`/agent/${userID}`);
+
+//delete User
+export const deleteUser = (userID) => API.delete(`/user/${userID}`);

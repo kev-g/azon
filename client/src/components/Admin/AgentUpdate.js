@@ -1,14 +1,12 @@
-import React, { useEffect, useState, component } from 'react'
-import { updateAgentPwd, updateProfile,deleteAgent } from '../../actions/agentAuth'
-import { useParams, Link,useHistory} from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { updateProfile, deleteAgent } from '../../actions/agentAuth'
+import { useParams, Link, useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import axios from 'axios'
 import { Paper, Select, MenuItem, FormControl, makeStyles, Button } from "@material-ui/core";
 import Box from '@mui/material/Box';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 export const AgentUpdate = (router) => {
@@ -21,11 +19,11 @@ export const AgentUpdate = (router) => {
 
     const handleClickOpen = () => {
         setOpen(true);
-      };
-    
-      const handleClose = () => {
+    };
+
+    const handleClose = () => {
         setOpen(false);
-      };
+    };
 
     const useStyles = makeStyles(theme => ({
         FormControl: { minWidth: 100 }
@@ -101,36 +99,43 @@ export const AgentUpdate = (router) => {
                                         </Select>
                                     </FormControl>
                                 </Box></h2>
-                            <Button onClick={handleSubmit}  color="primary" variant="contained"  >
+                            <Button onClick={handleSubmit} color="primary" variant="contained"  >
                                 Update
                             </Button>
                             <Button onClick={handleClickOpen} color="secondary" variant="contained" >
-                        Delete
-                    </Button>
-                    <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          {"Delete an Agent?"}
-        </DialogTitle>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleDelete} autoFocus >
-            Delete
-          </Button>
-        </DialogActions>
-      </Dialog>
-                    <Button component={Link} to=  {{
-                        pathname: `/AgentList`,
-                      }} color="primary" variant="contained">
-                     Back
-                    </Button>
+                                Delete
+                            </Button>
+                            <Dialog
+                                open={open}
+                                onClose={handleClose}
+                                aria-labelledby="alert-dialog-title"
+                                aria-describedby="alert-dialog-description"
+                            >
+                                <DialogTitle id="alert-dialog-title">
+                                    {"Delete an Agent?"}
+                                </DialogTitle>
+                                <DialogActions>
+                                    <Button onClick={handleClose}>Cancel</Button>
+                                    <Button onClick={handleDelete} autoFocus >
+                                        Delete
+                                    </Button>
+                                </DialogActions>
+                            </Dialog>
+                            {agentProfile.agent_status !== "Blacklisted" ?(
+                            <Button component={Link} to={{
+                                pathname: `/AgentList`,
+                            }} color="primary" variant="contained">
+                                Back
+                            </Button>):(
+                                <Button component={Link} to={{
+                                pathname: `/Blacklist`,
+                            }} color="primary" variant="contained">
+                                Back
+                            </Button>
+                            )}
                         </div>
                     </div></form>
-                    
+
             </Paper>
         </div>
     )

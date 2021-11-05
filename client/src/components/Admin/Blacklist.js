@@ -13,12 +13,12 @@ import { makeStyles, Button } from "@material-ui/core";
 
 
 
-const useStyles = makeStyles(theme => ({
-  FormControl: { minWidth: 100 }
+const useStyles = makeStyles(theme=>({
+    FormControl:{minWidth:100}
 }));
 
 
-const AgentList = () => {
+const Blacklist = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [order, setorder] = useState('ASC')
   const [agents, setAgents] = useState([])
@@ -64,23 +64,18 @@ const AgentList = () => {
           setSearchTerm(e.target.value)
         }}
       ></input>
-      <Button component={Link} to={{
-        pathname: `/UserList`,
-      }} >
-        UserList
-      </Button>
-      <Button component={Link} to={{
-        pathname: `/Blacklist`,
-      }} >
-        Blacklist
-      </Button>
-
+      <Button component={Link} to=  {{
+                        pathname: `/AgentList`,
+                      }} >
+                     AgentList
+                    </Button>
+      
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label='simple table'>
           <TableHead>
             <TableRow>
               <TableCell onClick={() => sorting('overallRating')}>
-                Name<SwapVertIcon /></TableCell>
+                  Name<SwapVertIcon /></TableCell>
               <TableCell>Email</TableCell>
               <TableCell>Agency</TableCell>
               <TableCell>CEA Number</TableCell>
@@ -102,7 +97,7 @@ const AgentList = () => {
                 }
               })
               .map((d) => (
-                d.agent_status !== "Blacklisted"  ? (
+                d.agent_status === "Blacklisted"  ? (
                 <TableRow
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   key={d._id}
@@ -117,13 +112,13 @@ const AgentList = () => {
                   <TableCell align='left'>{d.type}</TableCell>
                   <TableCell align='left'>{d.agent_status}</TableCell>
                   <TableCell align='left'>
-                    <Button component={Link} to={{
-                      pathname: `/agentList/${d._id}`,
-                    }} color="primary" variant="contained">Edit
+                    <Button component={Link} to=  {{
+                        pathname: `/agentList/${d._id}`,
+                      }}  color="primary"  variant="contained">Edit
                     </Button>
 
                   </TableCell>
-                </TableRow>):(<TableRow hiden></TableRow>)
+                </TableRow>):(<TableRow hiden></TableRow> )
               ))}
           </TableBody>
         </Table>
@@ -132,4 +127,4 @@ const AgentList = () => {
   )
 }
 
-export default AgentList
+export default Blacklist
