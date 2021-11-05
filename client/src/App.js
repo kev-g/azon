@@ -32,7 +32,8 @@ const [flatType,setflatType] = useState([''])
 const [allPropertyFromServer,setAllPropertyFromServer] = useState([''])
 const [allPropertyFromMongo,setAllPropertyFromMongo] = useState([''])
 const [refreshListing, setRefreshListing] = useState(true)
-const [property3, setProperty3] = useState([''])
+const [googleMapProperty,setGoogleMapProperty] = useState()
+const [googleMapLoad, setGoogleMapLoad] = useState(true)
 
 useEffect(() => {
 
@@ -42,7 +43,6 @@ useEffect(() => {
     setAllPropertyFromMongo(response.data)
     const response2 =  await Axios.get('https://data.gov.sg/api/action/datastore_search?resource_id=f1765b54-a209-4718-8d38-a39237f502b3&limit=2000')
     setAllPropertyFromServer(response2.data.result.records)
-    setLoad(false)
     
   }
 
@@ -52,11 +52,22 @@ useEffect(() => {
 },[refreshListing])
 
 useEffect(() => {
+  
+  const getPropertyLongLat =  async () => {
+    for (const pid in property2)
+    {
+      var town = property2[pid].street_name.split(' ').join('+')
+      const response = await Axios.get(`https://developers.onemap.sg/commonapi/search?searchVal=${town+"+"+property2[pid].block}&returnGeom=Y&getAddrDetails=Y`)
+      property2[pid]['latitude'] = response.data.results[0]?.LATITUDE? response.data.results[0].LATITUDE:0
+      property2[pid]['longitude'] = response.data.results[0]?.LONGITUDE? response.data.results[0].LONGITUDE:0
+    }
+    setGoogleMapProperty(property2)
+    setGoogleMapLoad(false)
+    setLoad(false)
+  }
 
     if (allPropertyFromServer[0] != ''){
-    console.log(allPropertyFromServer)
     var property2 = [] //api and database without LongLat
-    var property3 = [] //with LongLat
     var uniqueTown2 = []
     const propertyFromServer = allPropertyFromServer
     propertyFromServer.sort((a,b)=>(a.town>b.town)?1:-1)
@@ -69,7 +80,6 @@ useEffect(() => {
       if ((propertyFromServer[pId]['town'] === uniqueTown2[tId]) && !property.includes(propertyFromServer[pId])) 
       {
         property2.push(propertyFromServer[pId]) 
-        property3.push(propertyFromServer[pId]) 
         minListing--
         
       }
@@ -80,20 +90,6 @@ useEffect(() => {
       }
     }
 
-    const getPropertyLongLat =  async () => {
-      for (const pid in property3)
-      {
-        var town = property3[pid].street_name.split(' ').join('+')
-        const response = await Axios.get(`https://developers.onemap.sg/commonapi/search?searchVal=${town+"+"+property3[pid].block}&returnGeom=Y&getAddrDetails=Y`)
-        property3[pid]['latitude'] = response.data.results[0]?.LATITUDE? response.data.results[0].LATITUDE:0
-        property3[pid]['longitude'] = response.data.results[0]?.LONGITUDE? response.data.results[0].LONGITUDE:0
-      }
-      setProperty3(property3)
-    }
-    getPropertyLongLat()
-    console.log(property3)
-    console.log("new p3 above")
-   
     for (var i in allPropertyFromMongo)
     {
       if( allPropertyFromMongo[i]['flat_type'] !== undefined)
@@ -105,6 +101,9 @@ useEffect(() => {
     property2.sort((a,b)=>(a.town.toString().toUpperCase()>b.town.toString().toUpperCase())?1:-1)
     setUniqueTown([...new Set(property2.map(item => item.town))].sort())
     setflatType([...new Set(property2.map( item => item.flat_type))].sort())
+    if (googleMapLoad)
+      getPropertyLongLat()
+    console.log(property2)
     setProperty(property2)
     console.log("updated listing")
 }
@@ -134,7 +133,7 @@ return (
         <Route path="/profile" exact component={Profile} />
         <Route path="/profile/description" component={Description} />
         <Route exact path="/DisplayListings">
-         <DisplayListings property={property} uniqueTown={uniqueTown} flatType={flatType} property3={property3}  /> 
+         <DisplayListings property={property} uniqueTown={uniqueTown} flatType={flatType} googleMapProperty={googleMapProperty}/> 
         </Route>
         <Route exact path="/DisplayListings/:propertyId" render={(props) => <PropertyListing {...props} property={property} />} />
       </Switch>

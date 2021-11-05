@@ -31,8 +31,6 @@ const Property = ({ property, index }) => {
                             <Typography sx={{ pt: 5 }} variant='h5'>Street: {property.street_name}</Typography>
                             <Typography variant='h5'>Block: {property.block}</Typography>
                             <Typography variant='h5'>Floor Area (sqm): {property.floor_area_sqm}</Typography>
-                            <Typography variant='h5'>Lat: {property.latitude}</Typography>
-                            <Typography variant='h5'>Long: {property.longitude}</Typography>
                         </Grid>
                     </Grid>
                     <Grid sx={{alignItems:'flex-end', m:1}} container>
