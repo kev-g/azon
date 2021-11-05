@@ -15,6 +15,12 @@ How to start?
 	3. (Admin: admin@gmail.com, pwd 123) //login through Agent Login
 
 -------------------------------------------------------------------------------------------------------------
+6/11 Bug fixes & Updates:
+- Manage/Edit Users/Agents
+- View Blacklist
+- Blacklist Agents
+
+
 5/11 Bug fixes & Updates:
 - Edited Agent status page(diff views depending on status)
 - Added google map, markers and infobox
