@@ -22,6 +22,7 @@ How to start?
 - Admin part
 
 Some disclaimer:
+- Refreshing at display listings page will crash website as i only fetch from api once for google map
 - After going to "Display listing pages", have to wait around 5-10s for api to finish fetching the long lat, where the map will then display the markers.
 - Some lag/slow loading time fetched from api, see if can optimize (App.js in client folder)
 
