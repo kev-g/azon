@@ -22,16 +22,11 @@ const AgentDetail = () => {
     'https://www.back-tobasics.org/wp-content/uploads/2017/05/default-profile-pic.png'
   const labels = {
     0: 'No rating',
-    0.5: 'Useless',
-    1: 'Useless+',
-    1.5: 'Poor',
+    1: 'Poor',
     2: 'Poor+',
-    2.5: 'Ok',
-    3: 'Ok+',
-    3.5: 'Good',
-    4: 'Good+',
-    4.5: 'Excellent',
-    5: 'Excellent+',
+    3: 'Ok',
+    4: 'Good',
+    5: 'Excellent',
   }
   const [isShowProfile, setIsShowProfile] = useState(true)
   const [isAddReview, setIsAddReview] = useState(false)
