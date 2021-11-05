@@ -33,9 +33,15 @@ const Profile = () => {
     }
     fetchData();
   }, []);
+
+  function refreshPage() {
+    window.location.reload(false);
+  }
+
   return (
     <div>
       {user.result.type === "agent" ? (
+
         <section
           style={{
             textAlign: "center",
@@ -98,6 +104,16 @@ const Profile = () => {
               <h4>{agentProfile.description}</h4>
               <Link to="/profile/description">Add description</Link>
             </Paper>
+            <Button
+              component={Link}
+              to={{
+                pathname: `/profile/${agentProfile._id}`,
+              }}
+              className={classes.purple}
+              variant="contained"
+            >
+              Edit Profile
+            </Button>
             <Button
               component={Link}
               to="/reset"

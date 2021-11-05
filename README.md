@@ -19,6 +19,8 @@ How to start?
 - Manage/Edit Users/Agents
 - View Blacklist
 - Blacklist Agents
+- Edit Agent Profile
+(bug: Agent details in Profile Page not updated after edited the profile (Agent Database updated))
 
 
 5/11 Bug fixes & Updates:

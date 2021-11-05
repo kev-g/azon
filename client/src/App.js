@@ -22,6 +22,7 @@ import UserList from "./components/Admin/UserList";
 import AgentList from "./components/Admin/AgentList";
 import UserUpdate from "./components/Admin/UserUpdate";
 import Blacklist from "./components/Admin/Blacklist";
+import EditProfile from "./components/Pages/EditProfile";
 
 function App () {
 
@@ -132,6 +133,7 @@ return (
         <Route path="/userList/:id" children={<UserUpdate />}></Route>
         <Route path="/profile" exact component={Profile} />
         <Route path="/profile/description" component={Description} />
+        <Route path="/profile/:id" children={<EditProfile />}></Route>
         <Route exact path="/DisplayListings">
          <DisplayListings property={property} uniqueTown={uniqueTown} flatType={flatType} googleMapProperty={googleMapProperty}/> 
         </Route>
