@@ -49,12 +49,55 @@ export const AgentUpdate = (router) => {
         agentProfile.agent_status = newStatus;
     };
 
+    const [Name, setName] = useState('')
+    const [Email, setEmail] = useState('')
+    const [CEA, setCEA] = useState('')
+    const [Agency, setAgency] = useState('')
+    const [Number, setNumber] = useState('')
+  
+    let name = agentProfile.name
+    let email = agentProfile.email
+    let cea = agentProfile.CEA
+    let agency = agentProfile.agency
+    let number = agentProfile.phoneNumber
+  
+    const handleChangeName = (e) => {
+      e.preventDefault();
+        setName(e.target.value);
+        name = e.target.value
+        agentProfile.name = name
+  };
+  const handleChangeEmail = (e) => {
+    e.preventDefault();
+    setEmail(e.target.value);
+    email = e.target.value
+    agentProfile.email = email
+  };
+  const handleChangeCEA = (e) => {
+    e.preventDefault();
+    setCEA(e.target.value);
+    cea = e.target.value
+    agentProfile.CEA = cea
+  };
+  const handleChangeAgency = (e) => {
+    e.preventDefault();
+    setAgency(e.target.value);
+    agency = e.target.value
+    agentProfile.agency = agency
+  };
+  const handleChangeNumber = (e) => {
+    e.preventDefault();
+    setNumber(e.target.value);
+    number = e.target.value
+    agentProfile.phoneNumber = number
+  };
+
     const classes = useStyles();
 
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(updateProfile(id, agentProfile))
-        alert('Status Updated')
+        alert('Agent Updated')
         history.push("/agentList");
     };
 
@@ -72,11 +115,41 @@ export const AgentUpdate = (router) => {
                 <form >
                     <div style={{ textAlign: 'left' }}>
                         <div key={agentProfile.CEA}>
-                            <h2> Name : {agentProfile.name}</h2>
-                            <h2> Email : {agentProfile.email}</h2>
-                            <h2> Agency : {agentProfile.agency}</h2>
-                            <h2> CEA Number : {agentProfile.CEA}</h2>
-                            <h2> Phone Number : {agentProfile.phoneNumber}</h2>
+                            <h2> Name : <input
+                                type='string'
+                                name='name'
+                                onChange={handleChangeName}
+                                value={agentProfile.name}
+                                required
+                            /></h2>
+                            <h2> Email : <input
+                                type='string'
+                                name='email'
+                                onChange={handleChangeEmail}
+                                value={agentProfile.email}
+                                required
+                            /></h2>
+                            <h2> Agency : <input
+                                type='string'
+                                name='agency'
+                                onChange={handleChangeAgency}
+                                value={agentProfile.agency}
+                                required
+                            /></h2>
+                            <h2> CEA Number : <input
+                                type='string'
+                                name='CEA'
+                                onChange={handleChangeCEA}
+                                value={agentProfile.CEA}
+                                required
+                            /></h2>
+                            <h2> Phone Number : <input
+                                type='string'
+                                name='PhoneNumber'
+                                onChange={handleChangeNumber}
+                                value={agentProfile.phoneNumber}
+                                required
+                            /></h2>
 
                             <h2> Status :
                                 <Box sx={{ minWidth: 120 }}>
@@ -121,17 +194,17 @@ export const AgentUpdate = (router) => {
                                     </Button>
                                 </DialogActions>
                             </Dialog>
-                            {agentProfile.agent_status !== "Blacklisted" ?(
-                            <Button component={Link} to={{
-                                pathname: `/AgentList`,
-                            }} color="primary" variant="contained">
-                                Back
-                            </Button>):(
+                            {agentProfile.agent_status !== "Blacklisted" ? (
                                 <Button component={Link} to={{
-                                pathname: `/Blacklist`,
-                            }} color="primary" variant="contained">
-                                Back
-                            </Button>
+                                    pathname: `/AgentList`,
+                                }} color="primary" variant="contained">
+                                    Back
+                                </Button>) : (
+                                <Button component={Link} to={{
+                                    pathname: `/Blacklist`,
+                                }} color="primary" variant="contained">
+                                    Back
+                                </Button>
                             )}
                         </div>
                     </div></form>

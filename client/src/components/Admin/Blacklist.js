@@ -10,11 +10,12 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import { makeStyles, Button } from "@material-ui/core";
+import Refresh from '@mui/icons-material/Refresh';
 
 
 
-const useStyles = makeStyles(theme=>({
-    FormControl:{minWidth:100}
+const useStyles = makeStyles(theme => ({
+  FormControl: { minWidth: 100 }
 }));
 
 
@@ -44,14 +45,9 @@ const Blacklist = () => {
   }, [])
 
 
-  const [Status, setStatus] = useState('');
-
-  const handleChange = (event) => {
-    setStatus(event.target.value);
-  };
-
-  const classes = useStyles();
-
+  function refreshPage() {
+    window.location.reload(false);
+  }
 
 
   return (
@@ -64,18 +60,21 @@ const Blacklist = () => {
           setSearchTerm(e.target.value)
         }}
       ></input>
-      <Button component={Link} to=  {{
-                        pathname: `/AgentList`,
-                      }} >
-                     AgentList
-                    </Button>
-      
+      <Button component={Link} to={{
+        pathname: `/AgentList`,
+      }} >
+        AgentList
+      </Button>
+      <Button onClick={refreshPage}><Refresh
+        fontSize="inherit"
+        style={{ fontSize: "30px" }} /></Button>
+
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label='simple table'>
           <TableHead>
             <TableRow>
               <TableCell onClick={() => sorting('overallRating')}>
-                  Name<SwapVertIcon /></TableCell>
+                Name<SwapVertIcon /></TableCell>
               <TableCell>Email</TableCell>
               <TableCell>Agency</TableCell>
               <TableCell>CEA Number</TableCell>
@@ -97,28 +96,28 @@ const Blacklist = () => {
                 }
               })
               .map((d) => (
-                d.agent_status === "Blacklisted"  ? (
-                <TableRow
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  key={d._id}
-                >
-                  <TableCell component='th' scope='row'>
-                    {d.name}
-                  </TableCell>
-                  <TableCell align='left'>{d.email}</TableCell>
-                  <TableCell align='left'>{d.agency}</TableCell>
-                  <TableCell align='left'>{d.CEA}</TableCell>
-                  <TableCell align='left'>{d.phoneNumber}</TableCell>
-                  <TableCell align='left'>{d.type}</TableCell>
-                  <TableCell align='left'>{d.agent_status}</TableCell>
-                  <TableCell align='left'>
-                    <Button component={Link} to=  {{
+                d.agent_status === "Blacklisted" ? (
+                  <TableRow
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    key={d._id}
+                  >
+                    <TableCell component='th' scope='row'>
+                      {d.name}
+                    </TableCell>
+                    <TableCell align='left'>{d.email}</TableCell>
+                    <TableCell align='left'>{d.agency}</TableCell>
+                    <TableCell align='left'>{d.CEA}</TableCell>
+                    <TableCell align='left'>{d.phoneNumber}</TableCell>
+                    <TableCell align='left'>{d.type}</TableCell>
+                    <TableCell align='left'>{d.agent_status}</TableCell>
+                    <TableCell align='left'>
+                      <Button component={Link} to={{
                         pathname: `/agentList/${d._id}`,
-                      }}  color="primary"  variant="contained">Edit
-                    </Button>
+                      }} color="primary" variant="contained">Edit
+                      </Button>
 
-                  </TableCell>
-                </TableRow>):(<TableRow hiden></TableRow> )
+                    </TableCell>
+                  </TableRow>) : (<TableRow hiden></TableRow>)
               ))}
           </TableBody>
         </Table>

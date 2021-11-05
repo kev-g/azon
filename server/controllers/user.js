@@ -131,3 +131,34 @@ export const deleteUser = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
+
+//update profile
+export const userUpdateProfile = async (req, res) => {
+  //extract the id, /listings/123
+
+  const { id } = req.params;
+
+  // edit attributes here
+  const {
+    name,
+    type,
+    email,
+    password,
+  } = req.body;
+
+  // check if id is valid
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(404).send(`No User with id: ${id}`);
+
+  const updatedProfile = {
+    name,
+    type,
+    email,
+    password,
+    _id: id,
+  };
+
+  await UserModel.findByIdAndUpdate(id, updatedProfile, { new: true });
+
+  res.json(updatedProfile); // save updatedListing
+};

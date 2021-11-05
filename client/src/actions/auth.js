@@ -57,3 +57,12 @@ export const deleteUser = (userID) => async (dispatch) => {
     console.log(error.message);
   }
 };
+
+export const updateProfile = (userId, profile) => async (dispatch) => {
+  try {
+    const { data } = await api.userUpdateProfile(userId, profile);
+    dispatch({ type: USERUPDATE, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};

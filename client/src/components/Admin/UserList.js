@@ -9,11 +9,11 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
-import { Select, MenuItem, FormControl,makeStyles, Button } from "@material-ui/core";
-
+import { Button } from "@material-ui/core";
+import Refresh from '@mui/icons-material/Refresh';
 
 const UserList = () => {
-    const [searchTerm, setSearchTerm] = useState('')
+  const [searchTerm, setSearchTerm] = useState('')
   const [order, setorder] = useState('ASC')
   const [user, setUsers] = useState([])
 
@@ -32,12 +32,14 @@ const UserList = () => {
 
   useEffect(() => {
     axios.get('/user').then((res) => {
-        setUsers(res.data)
-        console.log(res.data);
+      setUsers(res.data)
+      console.log(res.data);
     })
   }, [])
 
-
+  function refreshPage() {
+    window.location.reload(false);
+  }
 
   return (
     <div>
@@ -50,18 +52,21 @@ const UserList = () => {
         }}
       ></input>
 
-        <Button component={Link} to=  {{
-                        pathname: `/AgentList`,
-                      }} >
-                     AgentList
-                    </Button>
+      <Button component={Link} to={{
+        pathname: `/AgentList`,
+      }} >
+        AgentList
+      </Button>
+      <Button onClick={refreshPage}><Refresh
+        fontSize="inherit"
+        style={{ fontSize: "30px" }} /></Button>
 
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label='simple table'>
           <TableHead>
             <TableRow>
               <TableCell onClick={() => sorting('overallRating')}>
-                  Name<SwapVertIcon /></TableCell>
+                Name<SwapVertIcon /></TableCell>
               <TableCell>Email</TableCell>
               <TableCell>Type</TableCell>
               <TableCell></TableCell>
@@ -88,12 +93,12 @@ const UserList = () => {
                   </TableCell>
                   <TableCell align='left'>{d.email}</TableCell>
                   <TableCell align='left'>{d.type}</TableCell>
-                  
+
                   <TableCell align='left'>
-                    <Button component={Link} to=  {{
-                        pathname: `/userList/${d._id}`,
-                      }} color="primary"  variant="contained">
-                     Edit
+                    <Button component={Link} to={{
+                      pathname: `/userList/${d._id}`,
+                    }} color="primary" variant="contained">
+                      Edit
                     </Button>
 
                   </TableCell>

@@ -1,6 +1,6 @@
 import express from "express";
 import auth from "../middleware/auth.js";
-import { signin, signup, userUpdatePwd,getUser,deleteUser } from "../controllers/user.js"; // logic in controller
+import { signin, signup, userUpdatePwd,getUser,deleteUser,userUpdateProfile } from "../controllers/user.js"; // logic in controller
 import UserModel from "../models/user.js";
 
 const router = express.Router();
@@ -19,5 +19,6 @@ router.get("/:id", async (req, res) => {
     }
   });
 router.delete("/:id", deleteUser)
+router.patch("/:id/profile", auth, userUpdateProfile);
 
 export default router;

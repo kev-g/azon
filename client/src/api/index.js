@@ -61,3 +61,6 @@ export const deleteAgent = (userID) => API.delete(`/agent/${userID}`);
 
 //delete User
 export const deleteUser = (userID) => API.delete(`/user/${userID}`);
+
+export const userUpdateProfile = (id, formData) =>
+  API.patch(`/user/${id}/profile`, formData);
