@@ -117,3 +117,17 @@ export const getUser = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
+
+export const deleteUser = async (req, res) => {
+  // add async
+  
+  try {
+    const { id } = req.params;
+    
+    const users = await UserModel.deleteOne({_id:id}); 
+    
+    res.status(200); // return array of objs
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};

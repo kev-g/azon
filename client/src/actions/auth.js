@@ -49,8 +49,9 @@ export const getUser = () => async (dispatch) => {
 
 export const deleteUser = (userID) => async (dispatch) => {
   try {
+    console.log(userID);
     const { data } = await api.deleteUser(userID);
-    console.log(data);
+    
     dispatch({ type: DELETE, payload: data });
   } catch (error) {
     console.log(error.message);
