@@ -80,6 +80,7 @@ const AgentList = () => {
               <TableCell>CEA Number</TableCell>
               <TableCell>Phone Number</TableCell>
               <TableCell>Type</TableCell>
+              <TableCell>Ratings</TableCell>
               <TableCell>Agent Status</TableCell>
               <TableCell></TableCell>
             </TableRow>
@@ -108,6 +109,7 @@ const AgentList = () => {
                   <TableCell align='left'>{d.CEA}</TableCell>
                   <TableCell align='left'>{d.phoneNumber}</TableCell>
                   <TableCell align='left'>{d.type}</TableCell>
+                  <TableCell align='left'>{d.overallRating}</TableCell>
                   <TableCell align='left'>{d.agent_status}</TableCell>
                   <TableCell align='left'>
                     <Button component={Link} to=  {{

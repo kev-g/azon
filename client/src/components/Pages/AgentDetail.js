@@ -8,6 +8,7 @@ import LocalPhoneIcon from '@mui/icons-material/LocalPhone'
 import Button from '@mui/material/Button'
 import SaveIcon from '@mui/icons-material/Save'
 
+
 const AgentDetail = () => {
   const [isShow, setIsShow] = useState(false)
   const { id } = useParams()
@@ -50,7 +51,13 @@ const AgentDetail = () => {
     <div>
       <div style={{ textAlign: 'center' }}>
         <div key={agentProfile.CEA}>
-          <h1>{agentProfile.profile_pic}</h1>
+        <img
+            style={{ width: 300 }}
+            src={
+              agentProfile.profile_pic ||
+              "https://www.back-tobasics.org/wp-content/uploads/2017/05/default-profile-pic.png"
+            }
+          ></img>
           <h2>
             {agentProfile.name} - Rating : {agentProfile.overallRating}
           </h2>

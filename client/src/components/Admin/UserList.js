@@ -31,7 +31,7 @@ const UserList = () => {
   }
 
   useEffect(() => {
-    axios.get('/user').then((res) => {
+    axios.get('/users').then((res) => {
         setUsers(res.data)
     })
   }, [])
