@@ -7,10 +7,34 @@ import axios from 'axios'
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone'
 import Button from '@mui/material/Button'
 import SaveIcon from '@mui/icons-material/Save'
-
+import Rating from '@mui/material/Rating'
+import StarIcon from '@mui/icons-material/Star'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
+import Paper from '@mui/material/Paper'
 
 const AgentDetail = () => {
-  const [isShow, setIsShow] = useState(false)
+  const defaultPic =
+    'https://www.back-tobasics.org/wp-content/uploads/2017/05/default-profile-pic.png'
+  const labels = {
+    0: 'No rating',
+    0.5: 'Useless',
+    1: 'Useless+',
+    1.5: 'Poor',
+    2: 'Poor+',
+    2.5: 'Ok',
+    3: 'Ok+',
+    3.5: 'Good',
+    4: 'Good+',
+    4.5: 'Excellent',
+    5: 'Excellent+',
+  }
+  const [isShowProfile, setIsShowProfile] = useState(true)
+  const [isAddReview, setIsAddReview] = useState(false)
   const { id } = useParams()
   const dispatch = useDispatch()
   const [agentProfile, setAgentProfile] = useState('')
@@ -42,65 +66,61 @@ const AgentDetail = () => {
     agentProfile.ratingList = ratingList
 
     agentProfile.overallRating = averageArr(ratingList).toFixed(0)
-
+    console.log(agentProfile)
     dispatch(updateProfile(id, agentProfile))
     alert('Leave a review successfully')
   }
 
   return (
-    <div>
-      <div style={{ textAlign: 'center' }}>
-        <div key={agentProfile.CEA}>
+    <div style={{ display: 'flex' }}>
+      <div style={{ flex: 0.5 }}>
+        <p style={{ fontSize: '50px' }}>Hi there, I'm</p>
         <img
-            style={{ width: 300 }}
-            src={
-              agentProfile.profile_pic ||
-              "https://www.back-tobasics.org/wp-content/uploads/2017/05/default-profile-pic.png"
-            }
-          ></img>
-          <h2>
-            {agentProfile.name} - Rating : {agentProfile.overallRating}
-          </h2>
-          <h4>From: {agentProfile.agency}</h4>
-          <h3>CEA Number: {agentProfile.CEA}</h3>
-          <p>
-            <LocalPhoneIcon />
-            {agentProfile.phoneNumber}
-          </p>
-          <p style={{ color: 'black' }}>Description</p>
-          <div
-            style={{
-              border: '3px solid',
-              padding: '25px 50px 75px 100px',
+          style={{ width: 300, borderRadius: '150px' }}
+          src={`${agentProfile.profile_pic}` || defaultPic}
+          alt={{}}
+        ></img>
+        <h1>{agentProfile.name}</h1>
+        <p style={{ fontSize: '30px' }}>Agent From {agentProfile.agency}</p>
+        <h2 style={{ fontSize: '35px', textDecoration: 'underline' }}>
+          About Me
+        </h2>
+        <p style={{ fontSize: '25px', width: '500px' }}>
+          {agentProfile.description}
+        </p>
+      </div>
+      <div style={{ flex: 0.45 }}>
+        <div>
+          <Button
+            variant='outlined'
+            style={{ fontSize: '25px' }}
+            onClick={() => {
+              setIsAddReview(false)
+              setIsShowProfile(true)
             }}
           >
-            <p>{agentProfile.description}</p>
-           
-          </div>
-          <Button onClick={() => setIsShow(!isShow)} color="primary"  variant="contained">
-           Click to see {agentProfile.name}'s Reviews
+            My Profile
+          </Button>
+          <Button
+            variant='outlined'
+            style={{ fontSize: '25px' }}
+            onClick={() => {
+              setIsAddReview(false)
+              setIsShowProfile(false)
+            }}
+          >
+            My Review
+          </Button>
+          <Button
+            variant='outlined'
+            style={{ fontSize: '25px' }}
+            onClick={() => setIsAddReview(true)}
+          >
+            Add Review
           </Button>
         </div>
-        {isShow ? (
+        {isAddReview ? (
           <div>
-            <div
-              style={{
-                border: '3px solid',
-                textAlign: 'left',
-              }}
-            >
-              {reviewList.length === 0 ? (
-                <div style={{ textAlign: 'center' }}>No review</div>
-              ) : (
-                agentProfile.reviewList.map((data, index) => {
-                  return (
-                    <ul key={index}>
-                      <li style={{ fontSize: '20px' }}>{data}</li>
-                    </ul>
-                  )
-                })
-              )}
-            </div>
             <form onSubmit={handleSubmit}>
               <label htmlFor='rating'>Rating </label>
               <input
@@ -111,19 +131,90 @@ const AgentDetail = () => {
                 max='5'
                 required
               />
-              <label>Add review</label>
               <TextField
                 name='review'
                 variant='outlined'
                 fullWidth
                 placeholder='leave a review'
                 required
-              />
-              <button color="primary"  variant="contained">Submit</button>
+              />{' '}
+              <button color='primary' variant='contained'>
+                Submit
+              </button>
             </form>
           </div>
         ) : (
-          ''
+          <div>
+            {isShowProfile ? (
+              <div>
+                <h1>
+                  Name: {agentProfile.name}
+                  <Rating
+                    name='text-feedback'
+                    value={`${agentProfile.overallRating}`}
+                    readOnly
+                    precision={0.5}
+                    emptyIcon={
+                      <StarIcon style={{ opacity: 0.55 }} fontSize='inherit' />
+                    }
+                  />
+                  {labels[agentProfile.overallRating]}
+                </h1>
+                <h1>CEA Number: {agentProfile.CEA}</h1>
+
+                <h1>
+                  Call me: {agentProfile.phoneNumber}
+                  <LocalPhoneIcon />
+                </h1>
+                <h1>Email: {agentProfile.email}</h1>
+              </div>
+            ) : (
+              <div>
+                {reviewList.length === 0 ? (
+                  <h1>No Review</h1>
+                ) : (
+                  <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 650 }} aria-label='simple table'>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>Review</TableCell>
+                          <TableCell>Rating</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {agentProfile.reviewList.map((data, index) => (
+                          <TableRow
+                            sx={{
+                              '&:last-child td, &:last-child th': { border: 0 },
+                            }}
+                            key={index}
+                          >
+                            <TableCell component='th' scope='row'>
+                              {data}
+                            </TableCell>
+                            <TableCell>
+                              <Rating
+                                name='text-feedback'
+                                value={`${agentProfile.ratingList[index]}`}
+                                readOnly
+                                precision={1}
+                                emptyIcon={
+                                  <StarIcon
+                                    style={{ opacity: 0.55 }}
+                                    fontSize='inherit'
+                                  />
+                                }
+                              />
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                )}
+              </div>
+            )}
+          </div>
         )}
       </div>
     </div>
