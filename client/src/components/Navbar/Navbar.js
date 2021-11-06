@@ -128,12 +128,7 @@ return (
                 alt={user?.result.name}
                 src={user?.result.profile_pic}
               >
-                {/* {user?.result.name.charAt(0)} */}
-                {user?.result.type !== "user" ? (
-                  user?.result.type === "agent"?
-                  (agentProfile?.name.charAt(0)):(userProfile?.name.charAt(0))
-                  ) : (user?.result.type === "user"?(userProfile?.name.charAt(0))
-                    :(user?.result.name.charAt(0)))}
+                {user?.result.name.charAt(0)}
                 
               </Avatar>
             </a>
