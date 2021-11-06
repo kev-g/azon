@@ -8,14 +8,15 @@ How to start?
 	2. Server(backend) - connected to mongoDB 
 
 (Testing accounts)
-1. login via azoncz2006@gmail.com gmail account (User only)
-2. Manual login 
+1. login via azoncz2006@gmail.com gmail account (For users, can try other gmail accounts as well)
+2. Manual login (Testing acounts)
 	1. (User: jon@gmail.com, pwd: 123)
 	2. (Agent: alan@gmail.com or steve@gmail.com, pwd: 123)
 	3. (Admin: admin@gmail.com, pwd 123) //login through Agent Login
 
 -------------------------------------------------------------------------------------------------------------
 6/11 Bug fixes & Updates:
+- Map should be ok alr
 - Manage/Edit Users/Agents
 - View Blacklist
 - Blacklist Agents
@@ -29,10 +30,6 @@ How to start?
 - Fixed listing details (Agent pic is now fetched from profile info)
 - Admin part
 
-Some disclaimer:
-- Refreshing at display listings page will crash website as i only fetch from api once for google map
-- After going to "Display listing pages", have to wait around 5-10s for api to finish fetching the long lat, where the map will then display the markers.
-- Some lag/slow loading time fetched from api, see if can optimize (App.js in client folder)
 
 27/10 Bug fixes & Updates:
 - Made some minor changes (colors, styles etc)
