@@ -11,6 +11,7 @@ import { Box } from '@mui/material'
 import CircularProgress from '@mui/material/CircularProgress'
 import Pagination from '@mui/material/Pagination';
 import Map from '../Property/Map'; // Import map
+import Loader from '../Property/Loader';
 
 const DisplayListings = ({ property, uniqueTown, flatType, googleMapLoad, googleMapProperty }) => {
 

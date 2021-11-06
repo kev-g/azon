@@ -6,7 +6,9 @@ import ThumbUpAltOutlined from '@material-ui/icons/ThumbUpAltOutlined';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
-
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogTitle from '@mui/material/DialogTitle';
 
 // import { useSelector } from 'react-redux';
 import useStyles from './styles';
@@ -19,6 +21,16 @@ const Listing = ({ listing, setCurrentId }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const user = JSON.parse(localStorage.getItem('profile'));
+
+  const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
   // Likes logic here
   const Likes = () => {
@@ -81,9 +93,28 @@ const Listing = ({ listing, setCurrentId }) => {
 
         {/* check userid(manual/google) is = to the creator, if yes, then show delete button */}
         {(user?.result?.googleId === listing?.creator || user?.result?._id === listing?.creator) && (
-        <Button size="small" color="secondary" onClick={() => dispatch(deleteListing(listing._id))}>
+        
+        <>
+        <Button size="small" color="secondary" onClick = {handleClickOpen}>
           <DeleteIcon fontSize="small" /> Delete
         </Button>
+        <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        >
+        <DialogTitle id="alert-dialog-title">
+            {"Are you sure to delete ?"}
+        </DialogTitle>
+        <DialogActions>
+            <Button onClick={() => dispatch(deleteListing(listing._id))} autoFocus >
+                Delete
+            </Button>
+            <Button onClick={handleClose}>Cancel</Button>
+        </DialogActions>
+       </Dialog>
+       </>
         )}
 
         </CardActions>

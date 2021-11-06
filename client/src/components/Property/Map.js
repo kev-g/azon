@@ -1,10 +1,7 @@
 import { useState, React} from 'react'
 import GoogleMapReact from 'google-map-react'
-import LocationMarker from './LocationMarker'       //'../Property/LocationMarker'; 
+import LocationMarker from './LocationMarker'       
 import LocationInfoBox from './LocationInfoBox'    
-//import Loader from '.Loader'
-// define constants
-//const numOfPropsShow = 10;
 
 const Map = ({ property , center, zoom }) => {
 
@@ -48,10 +45,10 @@ const Map = ({ property , center, zoom }) => {
 
 Map.defaultProps = {
     center: {
-        lat: 1.290270,
+        lat: 1.35547,
         lng: 103.851959
     },
-    zoom: 12
+    zoom: 13
 }
 
 export default Map

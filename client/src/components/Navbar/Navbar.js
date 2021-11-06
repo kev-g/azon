@@ -115,24 +115,21 @@ const Navbar = () => {
             </Typography>
             
             {user.result.type !== "agent" ? (
-              // <Link to="/agentHub">Agent Hub</Link>
 
-              user.result.type === "user" ?(
-                <Button component={Link} to="/agentHub"  className={classes.purple} variant="contained"  >
-               Agent Hub
-                </Button>
-              ):(
+              user.result.type === "admin" ?(
                 <Button component={Link} to="/AgentList"  className={classes.purple} variant="contained"  >
-               Admin Dashboard
-                </Button>
+                Admin Dashboard
+                 </Button>
+               
+              ):(
+                <Button component={Link} to="/agentHub"  className={classes.purple} variant="contained"  >
+                Agent Hub
+                 </Button>
+               
               )
               
             ) : (
               <>
-              {/* <Button component={Link} to="/reset"  className={classes.purple} variant="contained"  >
-               Reset Password
-             </Button> */}
-             
 
              <Button component={Link} to="/createListing" className={classes.orange}  variant="contained" endIcon={<SendIcon />}>
                My Listings
@@ -141,10 +138,7 @@ const Navbar = () => {
               
               </>
             )}
-
-             
             
-
             <Button
               variant="contained"
               className={classes.logout}

@@ -11,9 +11,7 @@ const LocationInfoBox = ({info, setLocationInfo }) => {
         {/* <li>ID: <strong>{ info._id }</strong></li> */}
         <li>Town: <strong>{ info.town }</strong></li>
         <li>Address: <strong>{ info.block } { info.street_name }</strong></li>
-        {/* <li>Street Name: <strong>{ info.street_name }</strong></li> */}
         <li>Resale Price: $<strong>{ info.resale_price }</strong></li>
-        {/* <li>Button to view more details</li> */}
         <li>
             <a href={`/DisplayListings/${info._id}`} target={"_blank"} rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
                 <Button sx={{float: 'right' }}  variant='contained' size="small">View more details</Button>
