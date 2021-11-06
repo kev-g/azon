@@ -66,11 +66,12 @@ const Navbar = () => {
     }
     fetchAgentData()
   }
-  else
-  {
-        // Google acc login
-        setUser(JSON.parse(localStorage.getItem("profile")));
-  }
+  // else
+  // {
+  //       // Google acc 
+  //       console.log(user?.result.name);
+  //       setUser(JSON.parse(localStorage.getItem("profile")));
+  // }
 
 
   const token = user?.token; // check if token exists
@@ -148,10 +149,15 @@ return (
           )}
           <Typography className={classes.userName} variant="h6">
             {/* {user?.result.name} */}
-            {user?.result.type !== "admin" ? (
+            {/* {user?.result.type !== "admin" ? (
                   user?.result.type !== "agent"?
                   (userProfile?.name):(user?.result.name)
-                  ) : (agentProfile?.name)}
+                  ) : (agentProfile?.name)} */}
+
+                {user?.result.type === "user" ? (     
+                  user?.result.type !== "agent"?      
+                  (userProfile?.name):(agentProfile?.result.name)
+                  ) : (user?.result.name)}   
           </Typography>
 
           {user.result.type !== "agent" ? (
