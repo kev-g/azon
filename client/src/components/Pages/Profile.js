@@ -85,24 +85,24 @@ const Profile = () => {
           <div className={classes.overlay}>
             <Paper>
               <label>Name:</label>
-              <h1>{user.result.name}</h1>
+              <h1>{agentProfile.name}</h1>
             </Paper>
             <Paper>
               <label>CEA number:</label>
-              <h4>{user.result.CEA}</h4>
+              <h4>{agentProfile.CEA}</h4>
             </Paper>
             <Paper>
               <label>Agency:</label>
-              <h4>{user.result.agency}</h4>
+              <h4>{agentProfile.agency}</h4>
             </Paper>
             <Paper>
               <label>Ranking:</label>
-              <h4>{user.result.overallRating}</h4>
+              <h4>{agentProfile.overallRating}</h4>
             </Paper>
             <Paper>
               <label>Description:</label>
               <h4>{agentProfile.description}</h4>
-              <Link to="/profile/description">Add description</Link>
+              {/* <Link to="/profile/description">Add description</Link> */}
             </Paper>
             <Button
               component={Link}

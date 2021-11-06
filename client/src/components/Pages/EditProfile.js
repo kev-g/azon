@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { updateProfile} from '../../actions/agentAuth'
+import { updateProfile } from '../../actions/agentAuth'
 import { useParams, Link, useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import axios from 'axios'
-import { Paper, Button } from "@material-ui/core";
+import { Paper, Button, TextField } from "@material-ui/core";
 
 
 export const EditProfile = () => {
@@ -27,51 +27,59 @@ export const EditProfile = () => {
     const [CEA, setCEA] = useState('')
     const [Agency, setAgency] = useState('')
     const [Number, setNumber] = useState('')
-  
+    const [Des, setDes] = useState('');
+
     let name = agentProfile.name
     let email = agentProfile.email
     let cea = agentProfile.CEA
     let agency = agentProfile.agency
     let number = agentProfile.phoneNumber
-  
+    let des = agentProfile.description
+
     const handleChangeName = (e) => {
-      e.preventDefault();
+        e.preventDefault();
         setName(e.target.value);
         name = e.target.value
         agentProfile.name = name
-  };
-  const handleChangeEmail = (e) => {
-    e.preventDefault();
-    setEmail(e.target.value);
-    email = e.target.value
-    agentProfile.email = email
-  };
-  const handleChangeCEA = (e) => {
-    e.preventDefault();
-    setCEA(e.target.value);
-    cea = e.target.value
-    agentProfile.CEA = cea
-  };
-  const handleChangeAgency = (e) => {
-    e.preventDefault();
-    setAgency(e.target.value);
-    agency = e.target.value
-    agentProfile.agency = agency
-  };
-  const handleChangeNumber = (e) => {
-    e.preventDefault();
-    setNumber(e.target.value);
-    number = e.target.value
-    agentProfile.phoneNumber = number
-  };
-
+    };
+    const handleChangeEmail = (e) => {
+        e.preventDefault();
+        setEmail(e.target.value);
+        email = e.target.value
+        agentProfile.email = email
+    };
+    const handleChangeCEA = (e) => {
+        e.preventDefault();
+        setCEA(e.target.value);
+        cea = e.target.value
+        agentProfile.CEA = cea
+    };
+    const handleChangeAgency = (e) => {
+        e.preventDefault();
+        setAgency(e.target.value);
+        agency = e.target.value
+        agentProfile.agency = agency
+    };
+    const handleChangeNumber = (e) => {
+        e.preventDefault();
+        setNumber(e.target.value);
+        number = e.target.value
+        agentProfile.phoneNumber = number
+    };
+    const handleChangeDes = (e) => {
+        e.preventDefault();
+        setDes(e.target.value);
+        des = e.target.value
+        agentProfile.description = des
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(updateProfile(id, agentProfile))
+        console.log(agentProfile);
         alert('Profile Updated')
         history.push("/profile");
-        
+
     };
 
 
@@ -116,16 +124,23 @@ export const EditProfile = () => {
                                 value={agentProfile.phoneNumber}
                                 required
                             /></h2>
+                            <h2> Description : <TextField
+                                name="desctiption"
+                                variant="outlined"
+                                fullWidth
+                                value={agentProfile.description}
+                                onChange={handleChangeDes}
+                            /></h2>
 
-                            
+
                             <Button onClick={handleSubmit} color="primary" variant="contained"  >
                                 Update
                             </Button>
-                                <Button component={Link} to={{
-                                    pathname: `/profile`,
-                                }} color="primary" variant="contained">
-                                    Back
-                                </Button>
+                            <Button component={Link} to={{
+                                pathname: `/profile`,
+                            }} color="primary" variant="contained">
+                                Back
+                            </Button>
                         </div>
                     </div></form>
 
