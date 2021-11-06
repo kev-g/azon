@@ -148,19 +148,19 @@ return (
             </Avatar>
           )}
           <Typography className={classes.userName} variant="h6">
-            {/* {user?.result.name} */}
-            {/* {user?.result.type !== "admin" ? (
-                  user?.result.type !== "agent"?
-                  (userProfile?.name):(user?.result.name)
-                  ) : (agentProfile?.name)} */}
 
-                {user?.result.type === "user" ? (     
+                {/* {user?.result.type === "user" ? (     
                   user?.result.type !== "agent"?      
                   (userProfile?.name):(agentProfile?.name)
                   ) : (user?.result.type === "agent"?      
-                  (agentProfile?.name):(user?.result.type === "admin"?      
-                  (user?.result.name):(user?.result.name)
-                  ))}   
+                  (agentProfile?.name):(user?.result.name)
+                  )}    */}
+
+                  {user?.result.type === "user" ? (     
+                  userProfile?.name
+                  ) : (user?.result.type === "agent"?      
+                  (agentProfile?.name):(user?.result.name)
+                  )}
           </Typography>
 
           {user.result.type !== "agent" ? (
