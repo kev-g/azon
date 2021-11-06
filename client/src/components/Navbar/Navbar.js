@@ -156,8 +156,9 @@ return (
 
                 {user?.result.type === "user" ? (     
                   user?.result.type !== "agent"?      
-                  (userProfile?.name):(agentProfile?.result.name)
-                  ) : (user?.result.name)}   
+                  (userProfile?.name):(agentProfile?.name)
+                  ) : (user?.result.type !=="agent" ?(agentProfile?.name):(agentProfile?.name)
+                    )}   
           </Typography>
 
           {user.result.type !== "agent" ? (
