@@ -12,7 +12,7 @@ import CircularProgress from '@mui/material/CircularProgress'
 import Pagination from '@mui/material/Pagination';
 import Map from '../Property/Map'; // Import map
 
-const DisplayListings = ({ property, uniqueTown, flatType, googleMapProperty }) => {
+const DisplayListings = ({ property, uniqueTown, flatType, googleMapLoad, googleMapProperty }) => {
 
 
     const [closeAlert, setCloseAlert] = useState(true)
@@ -188,7 +188,7 @@ const DisplayListings = ({ property, uniqueTown, flatType, googleMapProperty }) 
                     {propertyFiltered2.length >= 1 && <Pagination sx={{ mt: 2, ml: 30 }} size="large" count={pagenationLength} color="primary" page={page} onChange={handleChange} showFirstButton showLastButton />}
                 </Box>
                 <Box sx={{ width: '50%', padding: 5}} >
-                    <Map  property={googleMapProperty} />
+                    {googleMapLoad? <CircularProgress/>:<Map  property={googleMapProperty}/> }
                 </Box>
             </Box>
         </Box>
