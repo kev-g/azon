@@ -29,7 +29,6 @@ const Profile = () => {
         `http://localhost:5000/agent/${user.result._id}`
       );
       setAgentProfile(response.data);
-      console.log(agentProfile);
     }
     fetchData();
   }, []);

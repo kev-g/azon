@@ -16,7 +16,6 @@ export const EditProfile = () => {
         async function fetchData() {
             let response = await axios.get(`http://localhost:5000/agent/${id}`)
             setAgentProfile(response.data)
-            console.log(agentProfile)
         }
         fetchData()
     }, [])
@@ -76,9 +75,10 @@ export const EditProfile = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(updateProfile(id, agentProfile))
-        console.log(agentProfile);
+        console.log(agentProfile.name);
         alert('Profile Updated')
         history.push("/profile");
+
 
     };
 

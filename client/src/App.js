@@ -16,7 +16,6 @@ import Axios from 'axios'
 import { useState, useEffect } from 'react'
 import { Box } from '@mui/material'
 import CircularProgress from '@mui/material/CircularProgress'
-import Loader from './components/Property/Loader'
 import AgentUpdate from "./components/Admin/AgentUpdate";
 import UserList from "./components/Admin/UserList";
 import AgentList from "./components/Admin/AgentList";
@@ -35,6 +34,8 @@ const [allPropertyFromMongo,setAllPropertyFromMongo] = useState([''])
 const [refreshListing, setRefreshListing] = useState(true)
 const [googleMapProperty,setGoogleMapProperty] = useState()
 const [googleMapLoad, setGoogleMapLoad] = useState(true)
+
+
 
 useEffect(() => {
 
@@ -68,7 +69,7 @@ useEffect(() => {
     setLoad(false)
   }
 
-    if (allPropertyFromServer[0] != ''){
+    if (allPropertyFromServer[0] !== ''){
     var property2 = [] //api and database without LongLat
     var uniqueTown2 = []
     const propertyFromServer = allPropertyFromServer
