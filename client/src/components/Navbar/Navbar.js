@@ -66,6 +66,11 @@ const Navbar = () => {
     }
     fetchAgentData()
   }
+  else
+  {
+        // Google acc login
+        setUser(JSON.parse(localStorage.getItem("profile")));
+  }
 
 
   const token = user?.token; // check if token exists
