@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { AppBar, Typography, Toolbar, Avatar, Button } from "@material-ui/core";
-import { useParams, Link, useHistory, useLocation } from "react-router-dom";
+import {  Link, useHistory, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import decode from "jwt-decode";
 import SendIcon from '@mui/icons-material/Send';
@@ -20,7 +20,6 @@ const Navbar = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [userProfile, setUserProfile] = useState('')
   const [agentProfile, setAgentProfile] = useState('')
-
   const handleAnchorClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -31,9 +30,7 @@ const Navbar = () => {
 
   const logout = () => {
     dispatch({ type: actionType.LOGOUT }); // logout
-
     history.push("/auth"); // redirect back to auth
-
     setUser(null);
   };
 
@@ -131,12 +128,12 @@ return (
                 alt={user?.result.name}
                 src={user?.result.profile_pic}
               >
-                {/* {user?.result.name.charAt(0)} */}
-                {user?.result.type !== "user" ? (
+                {user?.result.name.charAt(0)}
+                {/* {user?.result.type !== "user" ? (
                   user?.result.type === "agent"?
                   (agentProfile?.name):(userProfile?.name)
                   ) : (userProfile?.name)}
-                
+                 */}
               </Avatar>
             </a>
           ) : (
@@ -149,11 +146,11 @@ return (
             </Avatar>
           )}
           <Typography className={classes.userName} variant="h6">
-            {/* {user?.result.name} */}
-            {user?.result.type !== "admin" ? (
+            {user?.result.name}
+            {/* {user?.result.type !== "admin" ? (
                   user?.result.type !== "agent"?
                   (userProfile?.name):(agentProfile?.name)
-                  ) : (agentProfile?.name)}
+                  ) : (agentProfile?.name)} */}
           </Typography>
 
           {user.result.type !== "agent" ? (
