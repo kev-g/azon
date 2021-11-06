@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Divider from '@mui/material/Divider';
 import SearchIcon from '@mui/icons-material/Search';
 import Paper from '@mui/material/Paper';
-import { Link } from 'react-router-dom';
+import { Link,useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import Autocomplete from '@mui/material/Autocomplete'
 import TextField from '@mui/material/TextField';
@@ -12,7 +12,7 @@ import TextField from '@mui/material/TextField';
 const SearchBar = ({uniqueTown,refreshListing,setRefreshListing}) => {
 
     const [searchQuery, updatesearchQuery] = useState(['']);
-
+    const history = useHistory();
     const handleChange = (e,value) => {
         
         updatesearchQuery({'searchQuery': value})//updatesearchQuery({...searchQuery,'searchQuery': value})//updatesearchQuery({...searchQuery,[e.target.name]: e.target.value.trim()})//
@@ -29,7 +29,9 @@ const SearchBar = ({uniqueTown,refreshListing,setRefreshListing}) => {
         console.log(searchQuery);
     };
 
-
+    useEffect(() => {
+        history.push('/')
+    }, [])
     return (
         <Box 
             sx={{

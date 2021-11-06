@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useDispatch } from "react-redux";
 import {
   Avatar,
@@ -86,6 +86,11 @@ const Auth = () => {
   // only change the specified current input with the target value
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
+
+
+    useEffect(() => {
+      history.push('/auth')
+    }, [])
 
   return (
     <Container component="main" maxWidth="xs">

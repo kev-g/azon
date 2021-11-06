@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { Link,useHistory } from 'react-router-dom'
 import SwapVertIcon from '@mui/icons-material/SwapVert'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -19,6 +19,7 @@ const AgentList = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [order, setorder] = useState('ASC')
   const [agents, setAgents] = useState([])
+  const history = useHistory();
 
   const sorting = (col) => {
     if (order === 'ASC') {
@@ -34,6 +35,7 @@ const AgentList = () => {
   }
 
   useEffect(() => {
+    history.push('/agentlist')
     axios.get('/agent').then((res) => {
       setAgents(res.data)
       console.log(res.data);

@@ -1,5 +1,5 @@
 import { Paper, Button } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Link,useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { updateProfile } from "../../actions/agentAuth";
 import React, { useEffect, useState } from "react";
@@ -15,6 +15,7 @@ const Profile = () => {
   const [agentProfile, setAgentProfile] = useState("");
   const [reupload, setReupload] = useState(false);
   const dispatch = useDispatch();
+  const history = useHistory();
   const uploadPic = () => {
     dispatch(updateProfile(user.result._id, agentProfile));
     setReupload(!reupload);
@@ -23,6 +24,7 @@ const Profile = () => {
   console.log("reupload", reupload);
 
   useEffect(() => {
+    history.push('/profile')
     async function fetchData() {
       console.log(user.result._id);
       let response = await axios.get(
@@ -33,9 +35,6 @@ const Profile = () => {
     fetchData();
   }, []);
 
-  function refreshPage() {
-    window.location.reload(false);
-  }
 
   return (
     <div>

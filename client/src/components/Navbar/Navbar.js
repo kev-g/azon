@@ -128,12 +128,12 @@ return (
                 alt={user?.result.name}
                 src={user?.result.profile_pic}
               >
-                {user?.result.name.charAt(0)}
-                {/* {user?.result.type !== "user" ? (
+                {/* {user?.result.name.charAt(0)} */}
+                {user?.result.type !== "user" ? (
                   user?.result.type === "agent"?
                   (agentProfile?.name):(userProfile?.name)
                   ) : (userProfile?.name)}
-                 */}
+                
               </Avatar>
             </a>
           ) : (
@@ -146,11 +146,11 @@ return (
             </Avatar>
           )}
           <Typography className={classes.userName} variant="h6">
-            {user?.result.name}
-            {/* {user?.result.type !== "admin" ? (
+            {/* {user?.result.name} */}
+            {user?.result.type !== "admin" ? (
                   user?.result.type !== "agent"?
                   (userProfile?.name):(agentProfile?.name)
-                  ) : (agentProfile?.name)} */}
+                  ) : (agentProfile?.name)}
           </Typography>
 
           {user.result.type !== "agent" ? (
