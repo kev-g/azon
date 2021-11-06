@@ -131,8 +131,9 @@ return (
                 {/* {user?.result.name.charAt(0)} */}
                 {user?.result.type !== "user" ? (
                   user?.result.type === "agent"?
-                  (agentProfile?.name):(userProfile?.name)
-                  ) : (userProfile?.name)}
+                  (agentProfile?.name.charAt(0)):(userProfile?.name.charAt(0))
+                  ) : (user?.result.type === "user"?(userProfile?.name.charAt(0))
+                    :(user?.result.name.charAt(0)))}
                 
               </Avatar>
             </a>
@@ -149,7 +150,7 @@ return (
             {/* {user?.result.name} */}
             {user?.result.type !== "admin" ? (
                   user?.result.type !== "agent"?
-                  (userProfile?.name):(agentProfile?.name)
+                  (userProfile?.name):(user?.result.name)
                   ) : (agentProfile?.name)}
           </Typography>
 
