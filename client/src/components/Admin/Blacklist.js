@@ -101,7 +101,8 @@ const Blacklist = () => {
                 }
               })
               .map((d) => (
-                d.agent_status === "Blacklisted" ? (
+                d.agent_status !== "Pending" ? (
+                  d.agent_status !== "Approved" ?(
                   <TableRow
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     key={d._id}
@@ -122,7 +123,7 @@ const Blacklist = () => {
                       </Button>
 
                     </TableCell>
-                  </TableRow>) : (<TableRow hiden></TableRow>)
+                  </TableRow>):(<TableRow hiden></TableRow>)) : (<TableRow hiden></TableRow>)
               ))}
           </TableBody>
         </Table>
