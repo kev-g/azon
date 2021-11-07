@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-const PendingList = () => {
+const ApprovedList = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [order, setorder] = useState('ASC')
   const [agents, setAgents] = useState([])
@@ -39,7 +39,7 @@ const PendingList = () => {
   }
 
   useEffect(() => {
-    history.push('/PendingList')
+    history.push('/ApprovedList')
     axios.get('/agent').then((res) => {
       setAgents(res.data)
       console.log(res.data);
@@ -103,7 +103,7 @@ const PendingList = () => {
                 }
               })
               .map((d) => (
-                d.agent_status === "Pending" ? (
+                d.agent_status === "Approved" ? (
                   <TableRow
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     key={d._id}
@@ -133,4 +133,4 @@ const PendingList = () => {
   )
 }
 
-export default PendingList
+export default ApprovedList

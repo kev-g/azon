@@ -71,9 +71,9 @@ const AgentList = () => {
         Blacklist
       </Button>
       <Button component={Link} to={{
-        pathname: `/PendingList`,
+        pathname: `/ApprovedList`,
       }} >
-        Pending List
+        Approved List
       </Button>
       <Button onClick={refreshPage}><Refresh
         fontSize="inherit"
@@ -108,7 +108,7 @@ const AgentList = () => {
                 }
               })
               .map((d) => (
-                d.agent_status !== "Blacklisted" ? (
+                d.agent_status === "Pending" ? (
                   <TableRow
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     key={d._id}

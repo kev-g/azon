@@ -66,9 +66,9 @@ const Blacklist = () => {
         AgentList
       </Button>
       <Button component={Link} to={{
-        pathname: `/PendingList`,
+        pathname: `/ApprovedList`,
       }} >
-        Pending List
+        Approved List
       </Button>
       <Button onClick={refreshPage}><Refresh
         fontSize="inherit"
