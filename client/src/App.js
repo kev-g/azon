@@ -34,7 +34,7 @@ const [allPropertyFromMongo,setAllPropertyFromMongo] = useState([''])
 const [refreshListing, setRefreshListing] = useState(true)
 const [googleMapProperty,setGoogleMapProperty] = useState()
 const [googleMapLoad, setGoogleMapLoad] = useState(true)
-
+const [startGoogleMapLoad, setStartGoogleMapLoad] = useState(false)
 
 
 useEffect(() => {
@@ -45,7 +45,7 @@ useEffect(() => {
     setAllPropertyFromMongo(response.data)
     const response2 =  await Axios.get('https://data.gov.sg/api/action/datastore_search?resource_id=f1765b54-a209-4718-8d38-a39237f502b3&limit=2000')
     setAllPropertyFromServer(response2.data.result.records)
-    
+    setLoad(false)
   }
 
   getProperty()
@@ -66,7 +66,7 @@ useEffect(() => {
     }
     setGoogleMapProperty(property2)
     setGoogleMapLoad(false)
-    setLoad(false)
+    
   }
 
     if (allPropertyFromServer[0] !== ''){
@@ -104,7 +104,8 @@ useEffect(() => {
     property2.sort((a,b)=>(a.town.toString().toUpperCase()>b.town.toString().toUpperCase())?1:-1)
     setUniqueTown([...new Set(property2.map(item => item.town))].sort())
     setflatType([...new Set(property2.map( item => item.flat_type))].sort())
-    getPropertyLongLat()
+    if (startGoogleMapLoad)
+      getPropertyLongLat()
     console.log(property2)
     setProperty(property2)
     console.log("updated listing")
@@ -136,7 +137,7 @@ return (
         <Route path="/profile/description" component={Description} />
         <Route path="/profile/:id" children={<EditProfile />}></Route>
         <Route exact path="/DisplayListings">
-         <DisplayListings property={property} uniqueTown={uniqueTown} flatType={flatType} googleMapLoad={googleMapLoad} googleMapProperty={googleMapProperty}/> 
+         <DisplayListings property={property} uniqueTown={uniqueTown} flatType={flatType} googleMapLoad={googleMapLoad} googleMapProperty={googleMapProperty} setStartGoogleMapLoad={setStartGoogleMapLoad}/> 
         </Route>
         <Route exact path="/DisplayListings/:propertyId" render={(props) => <PropertyListing {...props} property={property} />} />
       </Switch>

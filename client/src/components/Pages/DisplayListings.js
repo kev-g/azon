@@ -13,7 +13,7 @@ import Pagination from '@mui/material/Pagination';
 import Map from '../Property/Map'; // Import map
 import Loader from '../Property/Loader';
 
-const DisplayListings = ({ property, uniqueTown, flatType, googleMapLoad, googleMapProperty }) => {
+const DisplayListings = ({ property, uniqueTown, flatType, googleMapLoad, googleMapProperty, setStartGoogleMapLoad }) => {
 
 
     const [closeAlert, setCloseAlert] = useState(true)
@@ -64,7 +64,7 @@ const DisplayListings = ({ property, uniqueTown, flatType, googleMapLoad, google
 
     useEffect(() => {
 
-
+        setStartGoogleMapLoad(true)
 
         if (searchQueryNew.searchQuery === undefined || searchQueryNew.searchQuery === '' || searchQueryNew.searchQuery === null) {
 
