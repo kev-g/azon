@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { updateProfile } from '../../actions/agentAuth'
-import { useParams } from 'react-router-dom'
+import { useParams,Link } from 'react-router-dom'
 import { TextField } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
 import axios from 'axios'
@@ -29,7 +29,6 @@ const AgentDetail = () => {
     5: 'Excellent',
   }
   const [isShowProfile, setIsShowProfile] = useState(true)
-  const [isAddReview, setIsAddReview] = useState(false)
   const { id } = useParams()
   const dispatch = useDispatch()
   const [agentProfile, setAgentProfile] = useState('')
@@ -45,125 +44,42 @@ const AgentDetail = () => {
 
   let reviewList = agentProfile.reviewList
 
-  let ratingList = agentProfile.ratingList
 
-  const averageArr = (arraylist) =>
-    arraylist.reduce((a, b) => parseInt(a) + parseInt(b), 0) / arraylist.length
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    const { rating, review } = e.target.elements
-
-    reviewList = [...reviewList, review.value]
-    agentProfile.reviewList = reviewList
-
-    ratingList = [...ratingList, rating.value]
-    agentProfile.ratingList = ratingList
-
-    agentProfile.overallRating = averageArr(ratingList).toFixed(0)
-    console.log(agentProfile)
-    dispatch(updateProfile(id, agentProfile))
-    alert('Leave a review successfully')
-  }
 
   return (
-    <div style={{ display: 'flex' }}>
-      <div style={{ flex: 0.5 }}>
-        <p style={{ fontSize: '50px' }}>Hi there, I'm</p>
-        <img
-          style={{ width: 300, borderRadius: '150px' }}
-          src={`${agentProfile.profile_pic}` || defaultPic}
-          alt={{}}
-        ></img>
-        <h1>
-          {agentProfile.name}-{agentProfile.agent_status}
-        </h1>
-        <p style={{ fontSize: '30px' }}>Agent From {agentProfile.agency}</p>
-        <h2 style={{ fontSize: '35px', textDecoration: 'underline' }}>
-          About Me
-        </h2>
-        <p style={{ fontSize: '25px', width: '500px' }}>
-          {agentProfile.description}
-        </p>
-      </div>
-      <div style={{ flex: 0.45 }}>
+      <div >
         <div>
           <Button
             variant='outlined'
             style={{ fontSize: '25px' }}
             onClick={() => {
-              setIsAddReview(false)
               setIsShowProfile(true)
             }}
           >
-            My Profile
+            Agent Profile
           </Button>
           <Button
             variant='outlined'
             style={{ fontSize: '25px' }}
             onClick={() => {
-              setIsAddReview(false)
               setIsShowProfile(false)
             }}
           >
-            My Review
-          </Button>
-          <Button
-            variant='outlined'
-            style={{ fontSize: '25px' }}
-            onClick={() => setIsAddReview(true)}
-          >
-            Add Review
+            Reviews
           </Button>
         </div>
-        {isAddReview ? (
-          <div>
-            <form onSubmit={handleSubmit}>
-              <label htmlFor='rating'> Rating </label>
-              <input
-                type='number'
-                placeholder='Enter 1 to 5'
-                name='rating'
-                min='1'
-                max='5'
-                required
-              />
-              <TextField
-                name='review'
-                variant='outlined'
-                fullWidth
-                placeholder='leave a review'
-                required
-              />{' '}
-              <button color='primary' variant='contained'>
-                Submit
-              </button>
-            </form>
-          </div>
-        ) : (
           <div>
             {isShowProfile ? (
               <div>
-                <h1>
-                  Name: {agentProfile.name}
-                  <Rating
-                    name='text-feedback'
-                    value={`${agentProfile.overallRating}`}
-                    readOnly
-                    precision={0.5}
-                    emptyIcon={
-                      <StarIcon style={{ opacity: 0.55 }} fontSize='inherit' />
-                    }
-                  />
-                  {labels[agentProfile.overallRating]}
-                </h1>
-                <h1>CEA Number: {agentProfile.CEA}</h1>
-
-                <h1>
-                  Call me: {agentProfile.phoneNumber}
-                  <LocalPhoneIcon />
-                </h1>
-                <h1>Email: {agentProfile.email}</h1>
+                
+      <h1>Name : {agentProfile.name}</h1>
+        <h1>Email: {agentProfile.email}</h1>
+        <h1>Phone Number : {agentProfile.PhoneNumber}</h1>
+        <h1>CEA : {agentProfile.CEA}</h1>
+        <h1>Agency : {agentProfile.agency}</h1>
+        <h1>Overall Rating : {agentProfile.overallRating}</h1>
+        <h1>Status : {agentProfile.agent_status}</h1>
+                
               </div>
             ) : (
               <div>
@@ -212,9 +128,24 @@ const AgentDetail = () => {
               </div>
             )}
           </div>
-        )}
+          {agentProfile.agent_status !== "Blacklisted" ? (
+                                agentProfile.agent_status === "Pending" ?(<Button component={Link} to={{
+                                    pathname: `/AgentList`,
+                                }} color="primary" variant="contained">
+                                    Back
+                                </Button>):(<Button component={Link} to={{
+                                    pathname: `/ApprovedList`,
+                                }} color="primary" variant="contained">
+                                    Back
+                                </Button>)
+                                ) : (
+                                <Button component={Link} to={{
+                                    pathname: `/Blacklist`,
+                                }} color="primary" variant="contained">
+                                    Back
+                                </Button>
+                            )}
       </div>
-    </div>
   )
 }
 

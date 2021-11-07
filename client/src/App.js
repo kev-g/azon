@@ -23,6 +23,7 @@ import UserUpdate from "./components/Admin/UserUpdate";
 import Blacklist from "./components/Admin/Blacklist";
 import EditProfile from "./components/Pages/EditProfile";
 import ApprovedList from "./components/Admin/ApprovedList";
+import ViewReviews from "./components/Admin/ViewReviews";
 
 function App () {
 
@@ -133,6 +134,7 @@ return (
         <Route path="/blacklist" exact component={Blacklist} />
         <Route path="/approvedList" exact component={ApprovedList} />
         <Route path="/agentList/:id" children={<AgentUpdate />}></Route>
+        <Route path="/viewReviews/:id" children={<ViewReviews />}></Route>
         <Route path="/userList" exact component={UserList} />
         <Route path="/userList/:id" children={<UserUpdate />}></Route>
         <Route path="/profile" exact component={Profile} />

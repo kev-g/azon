@@ -195,11 +195,16 @@ export const AgentUpdate = (router) => {
                                 </DialogActions>
                             </Dialog>
                             {agentProfile.agent_status !== "Blacklisted" ? (
-                                <Button component={Link} to={{
+                                agentProfile.agent_status === "Pending" ?(<Button component={Link} to={{
                                     pathname: `/AgentList`,
                                 }} color="primary" variant="contained">
                                     Back
-                                </Button>) : (
+                                </Button>):(<Button component={Link} to={{
+                                    pathname: `/ApprovedList`,
+                                }} color="primary" variant="contained">
+                                    Back
+                                </Button>)
+                                ) : (
                                 <Button component={Link} to={{
                                     pathname: `/Blacklist`,
                                 }} color="primary" variant="contained">

@@ -128,6 +128,10 @@ const AgentList = () => {
                         pathname: `/agentList/${d._id}`,
                       }} color="primary" variant="contained">Edit
                       </Button>
+                      <Button component={Link} to={{
+                        pathname: `/viewReviews/${d._id}`,
+                      }} color="primary" variant="contained">View Reviews
+                      </Button>
 
                     </TableCell>
                   </TableRow>) : (<TableRow hiden></TableRow>)
