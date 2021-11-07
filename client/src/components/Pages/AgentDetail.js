@@ -75,7 +75,9 @@ const AgentDetail = () => {
           src={`${agentProfile.profile_pic}` || defaultPic}
           alt={{}}
         ></img>
-        <h1>{agentProfile.name}</h1>
+        <h1>
+          {agentProfile.name}-{agentProfile.agent_status}
+        </h1>
         <p style={{ fontSize: '30px' }}>Agent From {agentProfile.agency}</p>
         <h2 style={{ fontSize: '35px', textDecoration: 'underline' }}>
           About Me
