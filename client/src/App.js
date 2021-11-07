@@ -22,6 +22,7 @@ import AgentList from "./components/Admin/AgentList";
 import UserUpdate from "./components/Admin/UserUpdate";
 import Blacklist from "./components/Admin/Blacklist";
 import EditProfile from "./components/Pages/EditProfile";
+import PendingList from "./components/Admin/PendingList";
 
 function App () {
 
@@ -130,6 +131,7 @@ return (
         <Route path="/agent" exact component={AgentAuth} />
         <Route path="/agentList" exact component={AgentList} />
         <Route path="/blacklist" exact component={Blacklist} />
+        <Route path="/pendingList" exact component={PendingList} />
         <Route path="/agentList/:id" children={<AgentUpdate />}></Route>
         <Route path="/userList" exact component={UserList} />
         <Route path="/userList/:id" children={<UserUpdate />}></Route>

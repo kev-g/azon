@@ -9,13 +9,17 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
-import { Button } from "@material-ui/core";
+import { makeStyles, Button } from "@material-ui/core";
 import Refresh from '@mui/icons-material/Refresh';
 
 
 
+const useStyles = makeStyles(theme => ({
+  FormControl: { minWidth: 100 }
+}));
 
-const AgentList = () => {
+
+const PendingList = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [order, setorder] = useState('ASC')
   const [agents, setAgents] = useState([])
@@ -35,14 +39,12 @@ const AgentList = () => {
   }
 
   useEffect(() => {
-    
+    history.push('/PendingList')
     axios.get('/agent').then((res) => {
       setAgents(res.data)
       console.log(res.data);
     })
-    history.push('/agentlist')
   }, [])
-
 
 
   function refreshPage() {
@@ -61,24 +63,18 @@ const AgentList = () => {
         }}
       ></input>
       <Button component={Link} to={{
-        pathname: `/UserList`,
+        pathname: `/AgentList`,
       }} >
-        UserList
+        AgentList
       </Button>
       <Button component={Link} to={{
         pathname: `/Blacklist`,
       }} >
         Blacklist
       </Button>
-      <Button component={Link} to={{
-        pathname: `/PendingList`,
-      }} >
-        Pending List
-      </Button>
       <Button onClick={refreshPage}><Refresh
         fontSize="inherit"
         style={{ fontSize: "30px" }} /></Button>
-
 
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label='simple table'>
@@ -91,7 +87,6 @@ const AgentList = () => {
               <TableCell>CEA Number</TableCell>
               <TableCell>Phone Number</TableCell>
               <TableCell>Type</TableCell>
-              <TableCell>Ratings</TableCell>
               <TableCell>Agent Status</TableCell>
               <TableCell></TableCell>
             </TableRow>
@@ -108,7 +103,7 @@ const AgentList = () => {
                 }
               })
               .map((d) => (
-                d.agent_status !== "Blacklisted" ? (
+                d.agent_status === "Pending" ? (
                   <TableRow
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     key={d._id}
@@ -121,7 +116,6 @@ const AgentList = () => {
                     <TableCell align='left'>{d.CEA}</TableCell>
                     <TableCell align='left'>{d.phoneNumber}</TableCell>
                     <TableCell align='left'>{d.type}</TableCell>
-                    <TableCell align='left'>{d.overallRating}</TableCell>
                     <TableCell align='left'>{d.agent_status}</TableCell>
                     <TableCell align='left'>
                       <Button component={Link} to={{
@@ -139,4 +133,4 @@ const AgentList = () => {
   )
 }
 
-export default AgentList
+export default PendingList

@@ -65,6 +65,11 @@ const Blacklist = () => {
       }} >
         AgentList
       </Button>
+      <Button component={Link} to={{
+        pathname: `/PendingList`,
+      }} >
+        Pending List
+      </Button>
       <Button onClick={refreshPage}><Refresh
         fontSize="inherit"
         style={{ fontSize: "30px" }} /></Button>
