@@ -35,12 +35,11 @@ const AgentList = () => {
   }
 
   useEffect(() => {
-    
+    history.push('/agentlist')
     axios.get('/agent').then((res) => {
       setAgents(res.data)
       console.log(res.data);
     })
-    history.push('/agentlist')
   }, [])
 
 
