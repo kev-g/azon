@@ -22,8 +22,8 @@ const AgentDetail = () => {
     'https://www.back-tobasics.org/wp-content/uploads/2017/05/default-profile-pic.png'
   const labels = {
     0: 'No rating',
-    1: 'Poor',
-    2: 'Poor+',
+    1: 'Very Poor',
+    2: 'Poor',
     3: 'Ok',
     4: 'Good',
     5: 'Excellent',
@@ -74,7 +74,7 @@ const AgentDetail = () => {
 
             <h1>Name : {agentProfile.name}</h1>
             <h1>Email: {agentProfile.email}</h1>
-            <h1>Phone Number : {agentProfile.PhoneNumber}</h1>
+            <h1>Phone Number : {agentProfile.phoneNumber}</h1>
             <h1>CEA : {agentProfile.CEA}</h1>
             <h1>Agency : {agentProfile.agency}</h1>
             <h1>Overall Rating : {agentProfile.overallRating}</h1>

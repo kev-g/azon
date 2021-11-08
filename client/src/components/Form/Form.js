@@ -46,20 +46,44 @@ const Form = ({ currentId, setCurrentId }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (currentId === 0) {
-      //dispatch(createListing(postData));
-      // check if currently have the user
-      dispatch(createListing({ ...postData, name: user?.result?.name }));
-      clear();
-     // refresh();
-    } else {
-      //dispatch(updateListing(currentId, postData));
-      dispatch(updateListing(currentId, { ...postData, name: user?.result?.name }));
-      clear();
-      refresh();
+    // Validation
+    if (postData.title === "") {
+      alert("Please enter a title!");
+    }else if(postData.desc === ""){
+      alert("Please enter a description!");
+    }else if(postData.town === ""){
+      alert("Please select a town!");
+    }else if(postData.street_name === ""){
+      alert("Please enter a street name!");
+    }else if(postData.flat_type === ""){
+      alert("Please select a flat type!");
+    }else if(postData.block === ""){
+      alert("Please enter a block number!");
+    }else if(postData.flat_model === ""){
+      alert("Please select a flat model!");
+    }else if(postData.remaining_lease === ""){
+      alert("Please enter the remaining lease left!");
+    }else if(postData.resale_price === ""){
+      alert("Please enter a resale price!");
+    }else if(postData.floor_area_sqm === ""){
+      alert("Please enter a floor area sqm!");
+    }
+    else{
+      if (currentId === 0) {
+        //dispatch(createListing(postData));
+        // check if currently have the user
+        dispatch(createListing({ ...postData, name: user?.result?.name }));
+        clear();
+  
+      } else {
+        //dispatch(updateListing(currentId, postData));
+        dispatch(updateListing(currentId, { ...postData, name: user?.result?.name }));
+        clear();
+        refresh();
+      }
+        //clear();
     }
 
-    
   };
 
 // if no agents logged in
@@ -70,7 +94,8 @@ const Form = ({ currentId, setCurrentId }) => {
     return (
       <Paper className={classes.paper}>
         <Typography variant="h6" align="center">
-          Waiting for Admin's approval before you can create a listing.
+          <p>Waiting for Admin's approval before you can create a listing. </p> 
+          <p> Contact admin@gmail.com for more information. </p>
         </Typography>
       </Paper>
     );
@@ -139,15 +164,6 @@ const Form = ({ currentId, setCurrentId }) => {
           onChange={(e) => setPostData({ ...postData, title: e.target.value })}
         />
 
-        {/* <TextField
-          name="town"
-          variant="outlined"
-          label="Town"
-          fullWidth
-          value={postData.town}
-          onChange={(e) => setPostData({ ...postData, town: e.target.value })}
-        /> */}
-
         <FormControl fullWidth>
           <InputLabel id="town">Select Town</InputLabel>
           <Select
@@ -187,19 +203,6 @@ const Form = ({ currentId, setCurrentId }) => {
           </Select>
         </FormControl>
 
-
-
-        {/* <TextField
-          name="flat_type"
-          variant="outlined"
-          label="Flat Type"
-          fullWidth
-          value={postData.flat_type}
-          onChange={(e) =>
-            setPostData({ ...postData, flat_type: e.target.value })
-          }
-        /> */}
-
         <FormControl fullWidth>
           <InputLabel id="flat_type">Select no. of rooms</InputLabel>
           <Select
@@ -213,6 +216,33 @@ const Form = ({ currentId, setCurrentId }) => {
             <MenuItem value={"4 ROOM"}>4-ROOM</MenuItem>
             <MenuItem value={"5 ROOM"}>5-ROOM</MenuItem>
             <MenuItem value={"EXECUTIVE"}>EXECUTIVE</MenuItem>
+          </Select>
+        </FormControl>
+
+        <FormControl fullWidth>
+          <InputLabel id="flat_model">Select Flat Model:</InputLabel>
+          <Select
+            labelId="flat_model"
+            id="flat_model"
+            value={postData.flat_model}
+            label="Flat Model"
+            onChange={(e) => setPostData({ ...postData, flat_model: e.target.value })} 
+          >
+            <MenuItem value={"Apartment"}>Apartment</MenuItem>
+            <MenuItem value={"DBSS"}>DBSS</MenuItem>
+            <MenuItem value={"Improved"}>Improved</MenuItem>
+            <MenuItem value={"Maisonette"}>Maisonette</MenuItem>
+            <MenuItem value={"Model A"}>Model A</MenuItem>
+            <MenuItem value={"Model A-Maisonette"}>Model A-Maisonette</MenuItem>
+            <MenuItem value={"Model A2"}>Model A2</MenuItem>
+            <MenuItem value={"Multi Generation"}>Multi Generation</MenuItem>
+            <MenuItem value={"New Generation"}>New Generation</MenuItem>
+            <MenuItem value={"Premium Apartment"}>Premium Apartment</MenuItem>
+            <MenuItem value={"Premium Apartment Loft"}>Premium Apartment Loft</MenuItem>
+            <MenuItem value={"Simplified"}>Simplified</MenuItem>
+            <MenuItem value={"Standard"}>Standard</MenuItem>
+            <MenuItem value={"Type S1"}>Type S1</MenuItem>
+            <MenuItem value={"Type S2"}>Type S2</MenuItem>
           </Select>
         </FormControl>
 
@@ -234,16 +264,7 @@ const Form = ({ currentId, setCurrentId }) => {
             setPostData({ ...postData, street_name: e.target.value })
           }
         />
-        {/* <TextField
-          name="storeyRange"
-          variant="outlined"
-          label="storeyRange"
-          fullWidth
-          value={postData.storeyRange}
-          onChange={(e) =>
-            setPostData({ ...postData, storeyRange: e.target.value })
-          }
-        /> */}
+     
         
         <TextField
           name="floor Area"
@@ -255,16 +276,7 @@ const Form = ({ currentId, setCurrentId }) => {
             setPostData({ ...postData, floor_area_sqm: e.target.value })
           }
         />
-        <TextField
-          name="flatModel"
-          variant="outlined"
-          label="flat Model"
-          fullWidth
-          value={postData.flat_model}
-          onChange={(e) =>
-            setPostData({ ...postData, flat_model: e.target.value })
-          }
-        />
+
         {/* <TextField
           name="leaseStartDate"
           variant="outlined"
@@ -278,7 +290,7 @@ const Form = ({ currentId, setCurrentId }) => {
         <TextField
           name="remaining_lease"
           variant="outlined"
-          label="remaining Lease"
+          label="Remaining Lease (Yrs)"
           fullWidth
           value={postData.remaining_lease}
           onChange={(e) =>
@@ -297,7 +309,7 @@ const Form = ({ currentId, setCurrentId }) => {
         <TextField
           name="desc"
           variant="outlined"
-          label="description"
+          label="Add Description here"
           fullWidth
           multiline
           rows={4}

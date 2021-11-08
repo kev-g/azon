@@ -66,13 +66,6 @@ const Navbar = () => {
     }
     fetchAgentData()
   }
-  // else
-  // {
-  //       // Google acc 
-  //       console.log(user?.result.name);
-  //       setUser(JSON.parse(localStorage.getItem("profile")));
-  // }
-
 
   const token = user?.token; // check if token exists
 
@@ -122,6 +115,10 @@ return (
           </iframe>
         </Popover>
       </Box>
+      <Button component={Link} to="/" className={classes.purple} variant="contained" endIcon={<SendIcon />}>
+               Search for Listings
+      </Button>
+
     </div>
     {/* User Logic here */}
     <Toolbar className={classes.toolbar}>
@@ -130,7 +127,7 @@ return (
           {user.result.type !== "admin" ? (
             <a href="/profile">
               <Avatar
-                className={classes.purple}
+                // className={classes.purple}
                 alt={user?.result.name}
                 src={user?.result.profile_pic}
               >
@@ -140,7 +137,7 @@ return (
             </a>
           ) : (
             <Avatar
-              className={classes.purple}
+              // className={classes.purple}
               alt={user?.result.name}
               src={user?.result.imageUrl}
             >

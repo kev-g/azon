@@ -9,10 +9,8 @@ import { useDispatch } from 'react-redux';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
-
-// import { useSelector } from 'react-redux';
 import useStyles from './styles';
-
+import { useSelector } from "react-redux";
 import { likeListing, deleteListing } from '../../../actions/listings';
 
 
@@ -49,7 +47,6 @@ const Listing = ({ listing, setCurrentId }) => {
   };
 
     //console.log(listings);
- 
     return (
         <Card className={classes.card}>
         <CardMedia className={classes.media} image={listing.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} title={listing.title} />
@@ -59,29 +56,36 @@ const Listing = ({ listing, setCurrentId }) => {
         </div>
          {/* check userid(manual/google) is = to the creator, if yes, then show delete button */}
         {(user?.result?.googleId === listing?.creator || user?.result?._id === listing?.creator) && (
+          
         <div className={classes.overlay2}>
           <Button onClick={() => setCurrentId(listing._id)} style={{ color: 'white' }} size="small">
             <MoreHorizIcon fontSize="default" />
           </Button>
         </div>
+        
         )}
+      
+   
         <div className={classes.details}>
           {/* <Typography variant="body2" color="textSecondary" component="h2">{listing.tags.map((tag) => `#${tag} `)}</Typography> */}
         </div>
-        <Typography className={classes.title} gutterBottom variant="h5" component="h2">{listing.title}</Typography>
-        <CardContent>
 
-          <Typography variant="body2" color="textSecondary" component="p">Price: ${listing.resale_price}</Typography>
+       
+        <Typography className={classes.title} gutterBottom variant="h5" component="h2">{listing.title}</Typography>
+        
+        <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">Town: {listing.town}</Typography>
           <Typography variant="body2" color="textSecondary" component="p">Flat Type: {listing.flat_type}</Typography>
           <Typography variant="body2" color="textSecondary" component="p">Flat Model: {listing.flat_model}</Typography>
           <Typography variant="body2" color="textSecondary" component="p">Street Name: {listing.street_name}</Typography>
           <Typography variant="body2" color="textSecondary" component="p">Description: {listing.desc}</Typography>
           <Typography variant="body2" color="textSecondary" component="p">Remaining Lease: {listing.remaining_lease} years</Typography>
-          
+          <Typography variant="h5" color="textSecondary" component="h2">Resale Price: ${listing.resale_price}</Typography>
           {/* <Typography variant="body2" color="textSecondary" component="p">Lease StartDate: {listing.leaseStartDate}</Typography> */}
 
         </CardContent>
+    
+      
         <CardActions className={classes.cardActions}>
           {/* <Button size="small" color="primary" onClick={() => dispatch(likeListing(listing._id))}><ThumbUpAltIcon fontSize="small" /> &nbsp; Like &nbsp; {listing.likeCount}  </Button>
           <Button size="small" color="primary" onClick={() => dispatch(deleteListing(listing._id))}><DeleteIcon fontSize="small" /> Delete</Button> */}
