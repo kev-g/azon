@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { TextField, Button, Typography, Paper, FormControl, MenuItem, Select, InputLabel } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux"; // useSelector fetch data
 import FileBase from "react-file-base64";
-
+import { Grid, CircularProgress} from "@material-ui/core";
 import useStyles from "./styles";
 import { createListing, updateListing } from "../../actions/listings";
 
@@ -38,6 +38,11 @@ const Form = ({ currentId, setCurrentId }) => {
     if (listing) setPostData(listing); // populate listing data
   }, [listing]); // listing value changes
 
+  function refresh() {
+     window.location.reload(true);
+   
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -46,14 +51,15 @@ const Form = ({ currentId, setCurrentId }) => {
       // check if currently have the user
       dispatch(createListing({ ...postData, name: user?.result?.name }));
       clear();
+     // refresh();
     } else {
       //dispatch(updateListing(currentId, postData));
-      dispatch(
-        updateListing(currentId, { ...postData, name: user?.result?.name })
-      );
+      dispatch(updateListing(currentId, { ...postData, name: user?.result?.name }));
       clear();
+      refresh();
     }
-    //clear();
+
+    
   };
 
 // if no agents logged in
@@ -93,7 +99,7 @@ const Form = ({ currentId, setCurrentId }) => {
 
 
   const clear = () => {
-    setCurrentId(null);
+    setCurrentId(0);
     setPostData({
       title: "",
       desc: "",
