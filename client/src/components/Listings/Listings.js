@@ -7,11 +7,11 @@ import { Grid, CircularProgress, Typography, Paper } from "@material-ui/core";
 import { useSelector } from "react-redux";
 
 const Listings = ({ listing, setCurrentId }) => {
-  const listings = useSelector((state) => state.listings);
+  var listings = useSelector((state) => state.listings);
 
   const classes = useStyles(); // use css style
   const user = JSON.parse(localStorage.getItem('profile'));
-
+  listings = listings.filter((listing)=> listing.creator === user?.result?._id)
   return (
     // Loading spinner, show the listings if its not 0
     !listings.length ? (
