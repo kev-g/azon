@@ -22,8 +22,8 @@ const AgentDetail = () => {
     'https://www.back-tobasics.org/wp-content/uploads/2017/05/default-profile-pic.png'
   const labels = {
     0: 'No rating',
-    1: 'Poor',
-    2: 'Poor+',
+    1: 'Very Poor',
+    2: 'Poor',
     3: 'Ok',
     4: 'Good',
     5: 'Excellent',
@@ -69,16 +69,16 @@ const AgentDetail = () => {
   return (
     <div style={{ display: 'flex' }}>
       <div style={{ flex: 0.5 }}>
-        <p style={{ fontSize: '50px' }}>Hi there, I'm</p>
+        <p style={{ fontSize: '50px' }}>Hi there, I'm {agentProfile.name}.</p>
         <img
           style={{ width: 300, borderRadius: '150px' }}
           src={`${agentProfile.profile_pic}` || defaultPic}
           alt={{}}
         ></img>
-        <h1>
-          {agentProfile.name}-{agentProfile.agent_status}
-        </h1>
-        <p style={{ fontSize: '30px' }}>Agent From {agentProfile.agency}</p>
+        {/* <h1>
+            Status: {agentProfile.agent_status}
+        </h1> */}
+        <p style={{ fontSize: '30px' }}>Agency: {agentProfile.agency}</p>
         <h2 style={{ fontSize: '35px', textDecoration: 'underline' }}>
           About Me
         </h2>
@@ -160,8 +160,8 @@ const AgentDetail = () => {
                 <h1>CEA Number: {agentProfile.CEA}</h1>
 
                 <h1>
-                  Call me: {agentProfile.phoneNumber}
-                  <LocalPhoneIcon />
+                  Call me <LocalPhoneIcon />: {agentProfile.phoneNumber}
+                  
                 </h1>
                 <h1>Email: {agentProfile.email}</h1>
               </div>

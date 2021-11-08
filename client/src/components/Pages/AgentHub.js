@@ -33,6 +33,7 @@ const AgentHub = () => {
     axios.get('/agent').then((res) => {
       setAgents(res.data)
     })
+    
   }, [])
 
   return (
@@ -71,6 +72,7 @@ const AgentHub = () => {
                 }
               })
               .map((d) => (
+                d.agent_status === "Approved" ? (
                 <TableRow
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   key={d._id}
@@ -96,7 +98,7 @@ const AgentHub = () => {
                     </Button>
 
                   </TableCell>
-                </TableRow>
+                  </TableRow>) : (<TableRow hidden></TableRow>)
               ))}
           </TableBody>
         </Table>

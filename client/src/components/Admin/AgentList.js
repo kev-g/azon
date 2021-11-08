@@ -133,7 +133,7 @@ const AgentList = () => {
                       </Button>
 
                     </TableCell>
-                  </TableRow>) : (<TableRow hiden></TableRow>)
+                  </TableRow>) : (<TableRow hidden></TableRow>)
               ))}
           </TableBody>
         </Table>
