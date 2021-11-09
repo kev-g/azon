@@ -6,7 +6,6 @@ import Navbar from "./components/Navbar/Navbar";
 import Auth from "./components/Auth/Auth";
 import AgentAuth from "./components/Auth/AgentAuth";
 import Profile from "./components/Pages/Profile";
-import Description from "./components/Pages/Description";
 import Reset from "./components/Pages/Reset";
 import AgentHub from "./components/Pages/AgentHub";
 import AgentDetail from "./components/Pages/AgentDetail";
@@ -24,6 +23,9 @@ import Blacklist from "./components/Admin/Blacklist";
 import EditProfile from "./components/Pages/EditProfile";
 import ApprovedList from "./components/Admin/ApprovedList";
 import ViewReviews from "./components/Admin/ViewReviews";
+
+import EditUserProfile from "./components/Pages/EditUserProfile";
+import UserProfile from "./components/Pages/UserProfile";
 
 
 function App () {
@@ -43,13 +45,12 @@ const [startGoogleMapLoad, setStartGoogleMapLoad] = useState(false)
 useEffect(() => {
 
   const getProperty =  async () => {
-    setGoogleMapLoad(true)
-    setLoad(true)
+    
     const response = await Axios.get('http://localhost:5000/listings')
     setAllPropertyFromMongo(response.data)
     const response2 =  await Axios.get('https://data.gov.sg/api/action/datastore_search?resource_id=f1765b54-a209-4718-8d38-a39237f502b3&limit=2000')
     setAllPropertyFromServer(response2.data.result.records)
-    
+    setLoad(false)
   }
 
   getProperty()
@@ -61,7 +62,7 @@ useEffect(() => {
 useEffect(() => {
   
   const getPropertyLongLat =  async () => {
-    
+    setGoogleMapLoad(true)
     for (const pid in property2)
     {
       var town = property2[pid].street_name.split(' ').join('+')
@@ -114,7 +115,6 @@ useEffect(() => {
     console.log(property2)
     setProperty(property2)
     console.log("updated listing")
-    setLoad(false)
 }
 },[allPropertyFromServer]) 
 
@@ -126,8 +126,7 @@ return (
       
       <Switch>
         <Route exact path="/">
-              {load? <CircularProgress color="secondary"/>:<SearchBar uniqueTown={uniqueTown} refreshListing={refreshListing} setRefreshListing={setRefreshListing} 
-              setStartGoogleMapLoad={setStartGoogleMapLoad}/>}
+              {load? <CircularProgress color="secondary"/>:<SearchBar uniqueTown={uniqueTown} refreshListing={refreshListing} setRefreshListing={setRefreshListing}/>}
         </Route>
         <Route path="/createListing" exact component={Home} />
         <Route path="/auth" component={Auth} />
@@ -142,12 +141,12 @@ return (
         <Route path="/viewReviews/:id" children={<ViewReviews />}></Route>
         <Route path="/userList" exact component={UserList} />
         <Route path="/userList/:id" children={<UserUpdate />}></Route>
-        <Route path="/profile" exact component={Profile} />
-        <Route path="/profile/description" component={Description} />
+        <Route path="/profile" exact component={Profile} />       
         <Route path="/profile/:id" children={<EditProfile />}></Route>
+        <Route path="/userProfile" exact component={UserProfile} />
+        <Route path="/userProfile/:id" children={<EditUserProfile />}></Route>
         <Route exact path="/DisplayListings">
-         <DisplayListings property={property} uniqueTown={uniqueTown} flatType={flatType} googleMapLoad={googleMapLoad} googleMapProperty={googleMapProperty} 
-         setStartGoogleMapLoad={setStartGoogleMapLoad} load={load}/> 
+         <DisplayListings property={property} uniqueTown={uniqueTown} flatType={flatType} googleMapLoad={googleMapLoad} googleMapProperty={googleMapProperty} setStartGoogleMapLoad={setStartGoogleMapLoad}/> 
         </Route>
         <Route exact path="/DisplayListings/:propertyId" render={(props) => <PropertyListing {...props} property={property} />} />
       </Switch>

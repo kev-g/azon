@@ -44,6 +44,7 @@ const Navbar = () => {
       async function fetchUserData() {
         console.log(user?.result.name);
         let response = await axios.get(`http://localhost:5000/user/${user?.result._id}`)
+        
         setUserProfile(response.data)
       }
     fetchUserData()
@@ -124,7 +125,17 @@ return (
     <Toolbar className={classes.toolbar}>
       {user?.result ? ( // if user exists, (login)
         <div className={classes.profile}>
-          {user.result.type !== "admin" ? (
+          {user?.result.type !== "admin" ? (
+            user?.result.type === "user" ?(
+            <a href="/userProfile">
+            <Avatar
+              // className={classes.purple}
+              alt={user?.result.name}
+              src={user?.result.profile_pic}
+            >
+              {user?.result.name.charAt(0)}
+              
+            </Avatar></a>):(
             <a href="/profile">
               <Avatar
                 // className={classes.purple}
@@ -133,8 +144,7 @@ return (
               >
                 {user?.result.name.charAt(0)}
                 
-              </Avatar>
-            </a>
+              </Avatar></a>)
           ) : (
             <Avatar
               // className={classes.purple}
