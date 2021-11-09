@@ -177,7 +177,7 @@ const DisplayListings = ({ property, uniqueTown, flatType, googleMapLoad, google
             </Box>
             <Box sx={{ display: 'flex' }} >
                 <Box style={{ width: '50%', margin: 5, padding: 5 }}>
-                    {propertyFiltered.length < 1 && closeAlert &&
+                    {propertyFiltered.length < 1 && closeAlert && !load && 
                         <Alert sx={{ mt: 2 }} action={<IconButton size='small' onClick={() => { setCloseAlert(false) }}> <CloseIcon fontSize="inherit" /> </IconButton>}
                             severity="error">
                             <AlertTitle>Error</AlertTitle>
