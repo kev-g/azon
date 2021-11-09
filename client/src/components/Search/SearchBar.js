@@ -9,7 +9,7 @@ import { useState } from 'react';
 import Autocomplete from '@mui/material/Autocomplete'
 import TextField from '@mui/material/TextField';
 
-const SearchBar = ({uniqueTown,refreshListing,setRefreshListing}) => {
+const SearchBar = ({uniqueTown,refreshListing,setRefreshListing,setStartGoogleMapLoad}) => {
 
     const [searchQuery, updatesearchQuery] = useState(['']);
     const history = useHistory();
@@ -52,7 +52,7 @@ const SearchBar = ({uniqueTown,refreshListing,setRefreshListing}) => {
                     onKeyUp={handleChange2}
                     />
                     <Box sx={{display:'flex',ml:1}}>
-                    <Link to={{pathname:"/displayListings",  state:{searchQuery} }} onClick={()=>{setRefreshListing(!refreshListing)}}>
+                    <Link to={{pathname:"/displayListings",  state:{searchQuery} }} onClick={()=>{setRefreshListing(!refreshListing);setStartGoogleMapLoad(true)}}>
                         <IconButton type="submit" aria-label="search">
                             <SearchIcon color='secondary'/>
                         </IconButton>

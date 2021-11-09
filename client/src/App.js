@@ -43,12 +43,13 @@ const [startGoogleMapLoad, setStartGoogleMapLoad] = useState(false)
 useEffect(() => {
 
   const getProperty =  async () => {
-    
+    setGoogleMapLoad(true)
+    setLoad(true)
     const response = await Axios.get('http://localhost:5000/listings')
     setAllPropertyFromMongo(response.data)
     const response2 =  await Axios.get('https://data.gov.sg/api/action/datastore_search?resource_id=f1765b54-a209-4718-8d38-a39237f502b3&limit=2000')
     setAllPropertyFromServer(response2.data.result.records)
-    setLoad(false)
+    
   }
 
   getProperty()
@@ -60,7 +61,7 @@ useEffect(() => {
 useEffect(() => {
   
   const getPropertyLongLat =  async () => {
-    setGoogleMapLoad(true)
+    
     for (const pid in property2)
     {
       var town = property2[pid].street_name.split(' ').join('+')
@@ -113,6 +114,7 @@ useEffect(() => {
     console.log(property2)
     setProperty(property2)
     console.log("updated listing")
+    setLoad(false)
 }
 },[allPropertyFromServer]) 
 
@@ -124,7 +126,8 @@ return (
       
       <Switch>
         <Route exact path="/">
-              {load? <CircularProgress color="secondary"/>:<SearchBar uniqueTown={uniqueTown} refreshListing={refreshListing} setRefreshListing={setRefreshListing}/>}
+              {load? <CircularProgress color="secondary"/>:<SearchBar uniqueTown={uniqueTown} refreshListing={refreshListing} setRefreshListing={setRefreshListing} 
+              setStartGoogleMapLoad={setStartGoogleMapLoad}/>}
         </Route>
         <Route path="/createListing" exact component={Home} />
         <Route path="/auth" component={Auth} />
@@ -143,7 +146,8 @@ return (
         <Route path="/profile/description" component={Description} />
         <Route path="/profile/:id" children={<EditProfile />}></Route>
         <Route exact path="/DisplayListings">
-         <DisplayListings property={property} uniqueTown={uniqueTown} flatType={flatType} googleMapLoad={googleMapLoad} googleMapProperty={googleMapProperty} setStartGoogleMapLoad={setStartGoogleMapLoad}/> 
+         <DisplayListings property={property} uniqueTown={uniqueTown} flatType={flatType} googleMapLoad={googleMapLoad} googleMapProperty={googleMapProperty} 
+         setStartGoogleMapLoad={setStartGoogleMapLoad} load={load}/> 
         </Route>
         <Route exact path="/DisplayListings/:propertyId" render={(props) => <PropertyListing {...props} property={property} />} />
       </Switch>

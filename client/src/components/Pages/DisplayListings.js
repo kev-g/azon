@@ -12,11 +12,12 @@ import CircularProgress from '@mui/material/CircularProgress'
 import Pagination from '@mui/material/Pagination';
 import Map from '../Property/Map'; // Import map
 import Loader from '../Property/Loader';
+import Skeleton from '@mui/material/Skeleton'
 
-const DisplayListings = ({ property, uniqueTown, flatType, googleMapLoad, googleMapProperty, setStartGoogleMapLoad }) => {
+const DisplayListings = ({ property, uniqueTown, flatType, googleMapLoad, googleMapProperty, setStartGoogleMapLoad, load }) => {
 
 
-    const [closeAlert, setCloseAlert] = useState(true)
+    const [closeAlert, setCloseAlert] = useState(false)
     const [propertyFiltered, setPropertyFiltered] = useState([])
     const [propertyFiltered2, setPropertyFiltered2] = useState([])
     const [loading, setLoading] = useState(false)
@@ -65,7 +66,7 @@ const DisplayListings = ({ property, uniqueTown, flatType, googleMapLoad, google
     useEffect(() => {
 
         setStartGoogleMapLoad(true)
-
+        if (property[0] !== ''){
         if (searchQueryNew.searchQuery === undefined || searchQueryNew.searchQuery === '' || searchQueryNew.searchQuery === null) {
 
             if (filterByTown.length === 0)
@@ -143,12 +144,12 @@ const DisplayListings = ({ property, uniqueTown, flatType, googleMapLoad, google
             
         
         }
-
+    }
     }, [searchQueryNew, filterByTown, filterByPrice,filterByFlatType, property])
 
     useEffect (() => {
 
-        if(propertyFiltered.length < 1)
+        if(propertyFiltered.length < 1 && !load)
             setCloseAlert(true)
         else    
             setPagenationLength(Math.ceil(propertyFiltered.length/15))
@@ -182,14 +183,14 @@ const DisplayListings = ({ property, uniqueTown, flatType, googleMapLoad, google
                             <AlertTitle>Error</AlertTitle>
                             <strong> No listings found. Please try again. </strong>
                         </Alert>}
-                    {propertyFiltered2.length >= 1 && <Pagination sx={{ mt: 2, ml: 30 }} size="large" count={pagenationLength} color="primary" page={page} onChange={handleChange} showFirstButton showLastButton />}
-                    {propertyFiltered[0] === '' ? <CircularProgress /> : propertyFiltered2.map((property, index) => (
+                    {!load && propertyFiltered2.length >= 1 && <Pagination sx={{ mt: 2, ml: 30 }} size="large" count={pagenationLength} color="primary" page={page} onChange={handleChange} showFirstButton showLastButton />}
+                    {load? <CircularProgress color="secondary" /> : propertyFiltered2.map((property, index) => (
                         <Property key={index} property={property} />
                     ))}
-                    {propertyFiltered2.length >= 1 && <Pagination sx={{ mt: 2, ml: 30 }} size="large" count={pagenationLength} color="primary" page={page} onChange={handleChange} showFirstButton showLastButton />}
+                    {!load && propertyFiltered2.length >= 1 && <Pagination sx={{ mt: 2, ml: 30 }} size="large" count={pagenationLength} color="primary" page={page} onChange={handleChange} showFirstButton showLastButton />}
                 </Box>
                 <Box sx={{ width: '50%', padding: 5}} >
-                    {googleMapLoad? <CircularProgress/>:<Map  property={googleMapProperty}/> }
+                    {googleMapLoad? <Skeleton variant="rectangular" animation="wave" width={'100%'} height={800}/>:<Map  property={googleMapProperty}/> }
                 </Box>
             </Box>
         </Box>
